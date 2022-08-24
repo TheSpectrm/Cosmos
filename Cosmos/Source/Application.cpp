@@ -5,11 +5,19 @@ namespace Cosmos
 {
 	Application::Application()
 	{
-		printf("Application constructed!\n");
+		printf("Application initialized!\n");
 	}
 
 	Application::~Application()
 	{
 
+	}
+
+	void Application::Run()
+	{
+		while (true)
+		{
+			printf("Application running...\n");
+		}
 	}
 }

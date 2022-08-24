@@ -7,5 +7,7 @@ namespace Cosmos
 	public:
 		Application();
 		~Application();
+
+		void Run();
 	};
 }

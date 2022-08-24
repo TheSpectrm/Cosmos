@@ -1,10 +1,15 @@
 namespace Cosmos
 {
-	__declspec(dllimport) void Print();
+	class __declspec(dllimport) Application
+	{
+	public:
+		Application();
+		~Application();
+	};
 }
 
 int main()
 {
-	Cosmos::Print();
+	auto app = new Cosmos::Application();
 	return 0;
 }

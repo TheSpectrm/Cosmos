@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Core.h"
+
 namespace Cosmos
 {
-	class __declspec(dllexport) Application
+	class COSMOS_API Application
 	{
 	public:
 		Application();

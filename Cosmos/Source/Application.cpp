@@ -16,8 +16,6 @@ namespace Cosmos
 	void Application::Run()
 	{
 		while (true)
-		{
 			printf("Application running...\n");
-		}
 	}
 }

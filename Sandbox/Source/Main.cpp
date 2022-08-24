@@ -1,14 +1,4 @@
-namespace Cosmos
-{
-	class __declspec(dllimport) Application
-	{
-	public:
-		Application();
-		~Application();
-
-		void Run();
-	};
-}
+#include "Application.h"
 
 int main()
 {

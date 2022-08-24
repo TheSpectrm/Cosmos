@@ -1,3 +1,6 @@
 #pragma once
 
-void Print();
+namespace Cosmos
+{
+	void Print();
+}

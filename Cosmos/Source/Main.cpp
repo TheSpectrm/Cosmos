@@ -2,6 +2,6 @@
 
 int main()
 {
-	Print();
+	Cosmos::Print();
 	return 0;
 }

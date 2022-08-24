@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include "Test.h"
 
-void Print()
+namespace Cosmos
 {
-	printf("Welcome to Cosmos Engine!\n");
+	void Print()
+	{
+		printf("Welcome to Cosmos Engine!\n");
+		printf("Made by Spectrm!\n");
+	}
 }

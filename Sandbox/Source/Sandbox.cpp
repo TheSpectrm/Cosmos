@@ -3,15 +3,8 @@
 class Sandbox : public Cosmos::Application
 {
 public:
-	Sandbox()
-	{
-
-	}
-
-	~Sandbox()
-	{
-
-	}
+	Sandbox() { }
+	~Sandbox() { }
 };
 
 Cosmos::Application* Cosmos::CreateApplication()

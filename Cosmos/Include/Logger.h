@@ -12,8 +12,8 @@ namespace Cosmos
 		~Logger();
 
 		void Success(const char* format, ...);
-		void Info();
-		void Warn();
-		void Error();
+		void Info(const char* format, ...);
+		void Warn(const char* format, ...);
+		void Error(const char* format, ...);
 	};
 }

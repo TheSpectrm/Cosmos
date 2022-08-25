@@ -7,8 +7,10 @@ extern Cosmos::Application* Cosmos::CreateApplication();
 int main(int argc, char* argv[])
 {
 	auto logger = new Cosmos::Logger("Tester");
-	logger->Success("This is logger!");
-	logger->Success("Hello, I am a tester %.3f %c", 69.420, 'f');
+	logger->Success("This is SUCCESS!");
+	logger->Info("This is INFO!");
+	logger->Warn("This is WARN!");
+	logger->Error("This is ERROR!");
 
 	auto app = Cosmos::CreateApplication();
 	app->Run();

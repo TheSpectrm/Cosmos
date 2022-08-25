@@ -12,4 +12,7 @@ namespace Cosmos
 
 		void Run();
 	};
+
+	// To be defined in a Cosmos client
+	Application* CreateApplication();
 }

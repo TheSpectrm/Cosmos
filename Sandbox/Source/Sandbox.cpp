@@ -14,10 +14,7 @@ public:
 	}
 };
 
-int main()
+Cosmos::Application* Cosmos::CreateApplication()
 {
-	auto app = new Sandbox();
-	app->Run();
-
-	return 0;
+	return new Sandbox();
 }

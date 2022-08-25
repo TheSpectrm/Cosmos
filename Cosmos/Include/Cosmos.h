@@ -1,4 +1,4 @@
-// This file can only be included by Cosmos applications / clients
+// This file is for Cosmos applications / clients to include
 #pragma once
 
 #include "Application.h"

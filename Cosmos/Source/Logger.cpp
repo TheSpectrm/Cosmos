@@ -14,6 +14,7 @@ namespace Cosmos
 	{
 		va_list args;
 		va_start(args, format);
+		printf("%s: ", m_Name);
 		vprintf(format, args);
 		putchar('\n');
 		va_end(args);

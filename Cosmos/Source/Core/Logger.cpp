@@ -2,7 +2,8 @@
 #include <stdarg.h>
 #include <time.h>
 #include <Windows.h>
-#include "Logger.h"
+#include <memory>
+#include "Core/Logger.h"
 
 #define CS_RED    4
 #define CS_YELLOW 6
@@ -17,7 +18,7 @@ namespace Cosmos
 
 	Logger::~Logger() { }
 
-	void Logger::Success(const char* format, ...)
+	void Logger::Success(const char* format, ...) const
 	{
 		va_list args;
 		va_start(args, format);
@@ -29,7 +30,7 @@ namespace Cosmos
 		va_end(args);
 	}
 
-	void Logger::Info(const char* format, ...)
+	void Logger::Info(const char* format, ...) const
 	{
 		va_list args;
 		va_start(args, format);
@@ -41,7 +42,7 @@ namespace Cosmos
 		va_end(args);
 	}
 
-	void Logger::Warn(const char* format, ...) 
+	void Logger::Warn(const char* format, ...) const
 	{
 		va_list args;
 		va_start(args, format);
@@ -53,7 +54,7 @@ namespace Cosmos
 		va_end(args);
 	}
 
-	void Logger::Error(const char* format, ...) 
+	void Logger::Error(const char* format, ...) const
 	{
 		va_list args;
 		va_start(args, format);
@@ -74,5 +75,12 @@ namespace Cosmos
 		snprintf(timestamp, 11, "[%02d:%02d:%02d]", currentTime->tm_hour, currentTime->tm_min, currentTime->tm_sec);
 
 		return timestamp;
+	}
+
+	Logger* Log::m_CoreLogger;
+
+	void Log::Init()
+	{
+		m_CoreLogger = new Logger("CORE");
 	}
 }

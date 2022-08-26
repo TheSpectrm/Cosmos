@@ -1,7 +1,7 @@
 // This file is for Cosmos clients to include
 #pragma once
 
-#include "Logger.h"
-#include "Application.h"
+#include "Core/Logger.h"
+#include "Core/Application.h"
 
-#include "Entry.h"
+#include "Core/Entry.h"

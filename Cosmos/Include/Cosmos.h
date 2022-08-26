@@ -3,4 +3,5 @@
 
 #include "Logger.h"
 #include "Application.h"
+
 #include "Entry.h"

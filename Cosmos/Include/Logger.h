@@ -15,5 +15,6 @@ namespace Cosmos
 		void Info(const char* format, ...);
 		void Warn(const char* format, ...);
 		void Error(const char* format, ...);
+		char* FormatTime() const;
 	};
 }

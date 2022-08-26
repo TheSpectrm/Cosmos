@@ -6,12 +6,12 @@ extern Cosmos::Application* Cosmos::CreateApplication();
 
 int main(int argc, char* argv[])
 {
-	Cosmos::Log::Init();
+	CS_LOG_INIT();
 
-	Cosmos::Log::GetCoreLogger()->Success("SUCCESS from the core! %c", 'f');
-	Cosmos::Log::GetCoreLogger()->Info("INFO from the core! %c", 'f');
-	Cosmos::Log::GetCoreLogger()->Warn("WARN from the core! %c", 'f');
-	Cosmos::Log::GetCoreLogger()->Error("ERROR from the core! %c", 'f');
+	CS_CORE_SUCCESS("SUCCESS from the core! %d %c", 420, 'f');
+	CS_CORE_INFO("INFO from the core! %d %c", 420, 'f');
+	CS_CORE_WARN("WARN from the core! %d %c", 420, 'f');
+	CS_CORE_ERROR("ERROR from the core! %d %c", 420, 'f');
 
 	auto app = Cosmos::CreateApplication();
 	app->Run();

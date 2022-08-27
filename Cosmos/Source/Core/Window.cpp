@@ -25,29 +25,31 @@ namespace Cosmos
 			return;
 		}
 		CS_CORE_SUCCESS("Initialized GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 		m_BaseWindow = glfwCreateWindow(m_Width, m_Height, m_Title, null, null);
 
 		if (!m_BaseWindow)
 		{
-			CS_CORE_ERROR("Failed to create a GLFW window");
+			CS_CORE_ERROR("Failed to create GLFW window");
 			return;
 		}
-		CS_CORE_SUCCESS("Created a GLFW window (width=%d, height=%d, title='%s')", m_Width, m_Height, m_Title);
+		CS_CORE_SUCCESS("Created GLFW window (width=%d, height=%d, title='%s')", m_Width, m_Height, m_Title);
 		glfwMakeContextCurrent(m_BaseWindow);
-		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void Window::Destroy()
 	{
 		glfwDestroyWindow(m_BaseWindow);
-		CS_CORE_INFO("Destroyed a GLFW window");
+		CS_CORE_INFO("Destroyed GLFW window");
 		glfwTerminate();
 		CS_CORE_INFO("Terminated GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
 	}
 
 	void Window::Update()
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		glfwSwapBuffers(m_BaseWindow);
 		glfwPollEvents();
 	}

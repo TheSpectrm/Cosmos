@@ -77,6 +77,7 @@ namespace Cosmos
 	void Log::Init()
 	{
 		m_CoreLogger = new Logger("CORE");
-		CS_CORE_SUCCESS("Initialized core, console and core logger");
+		CS_CORE_SUCCESS("Initialized core and console");
+		CS_CORE_SUCCESS("Completely initialized core logger");
 	}
 }

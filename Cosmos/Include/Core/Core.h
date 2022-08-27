@@ -7,5 +7,5 @@
 		#define COSMOS_API __declspec(dllimport)
 	#endif
 #else
-	#error Cosmos Engine only supports Windows for now!
+	#error "Cosmos Engine only supports Windows for now!"
 #endif

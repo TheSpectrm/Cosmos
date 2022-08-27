@@ -1,18 +1,25 @@
-#include <stdio.h>
-#include "Core/Logger.h"
+#include <cspch.h>
 #include "Core/Application.h"
 
 namespace Cosmos
 {
-	Application::Application() 
+	Application::Application()
+		: m_Window()
 	{
-		CS_CORE_INFO("Created an application");
+		CS_CORE_SUCCESS("Created and initialized an application");
+		m_Window = new Window(400, 400, "Test Window");
 	}
 
-	Application::~Application() { }
+	Application::~Application() 
+	{
+		delete m_Window;
+	}
 
 	void Application::Run()
 	{
-		while (true);
+		while (true)
+		{
+			m_Window->Update();
+		}
 	}
 }

@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-#include <Windows.h>
-#include <memory>
-#include "Core/Logger.h"
+#include <cspch.h>
 
 #define CS_RED    4
 #define CS_YELLOW 6

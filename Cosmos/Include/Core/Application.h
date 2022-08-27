@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Core/Core.h"
+#include "Core/Window.h"
 
 namespace Cosmos
 {
 	class COSMOS_API Application
 	{
+		Window* m_Window;
 	public:
 		Application();
 		~Application();

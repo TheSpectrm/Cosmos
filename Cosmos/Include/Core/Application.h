@@ -9,9 +9,10 @@ namespace Cosmos
 		Window* m_Window;
 	public:
 		Application();
-		~Application();
+		~Application() = default;
 
-		void Run();
+		void Run() const;
+		void OnEvent(Event& e) const;
 	};
 
 	// To be defined in a Cosmos client

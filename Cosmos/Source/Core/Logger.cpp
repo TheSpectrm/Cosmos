@@ -11,8 +11,6 @@ namespace Cosmos
 		: m_Name(name)
 	{ }
 
-	Logger::~Logger() { }
-
 	void Logger::Success(const char* format, ...) const
 	{
 		va_list args;
@@ -61,7 +59,7 @@ namespace Cosmos
 		va_end(args);
 	}
 
-	char* Logger::FormatTime() const
+	const char* Logger::FormatTime() const
 	{
 		time_t t = time(0);
 		tm* currentTime = localtime(&t);

@@ -7,8 +7,11 @@
 namespace Cosmos
 {
 	Window::Window(uint32_t width, uint32_t height, const char* title)
-		: m_BaseWindow(), m_Width(width), m_Height(height), m_Title(title)
-	{ 
+	{
+		m_BaseWindow = null;
+		m_Data.Width = width;
+		m_Data.Height = height;
+		m_Data.Title = title;
 		Create();
 	}
 
@@ -25,20 +28,38 @@ namespace Cosmos
 			return;
 		}
 		CS_CORE_SUCCESS("Initialized GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-		m_BaseWindow = glfwCreateWindow(m_Width, m_Height, m_Title, null, null);
+		m_BaseWindow = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title, null, null);
 
 		if (!m_BaseWindow)
 		{
 			CS_CORE_ERROR("Failed to create GLFW window");
 			return;
 		}
-		CS_CORE_SUCCESS("Created GLFW window (width=%d, height=%d, title='%s')", m_Width, m_Height, m_Title);
+		CS_CORE_SUCCESS("Created GLFW window (width=%d, height=%d, title='%s')", m_Data.Width, m_Data.Height, m_Data.Title);
 		glfwMakeContextCurrent(m_BaseWindow);
+		glfwSetWindowUserPointer(m_BaseWindow, &m_Data);
+
+		glfwSetWindowCloseCallback(m_BaseWindow, [](GLFWwindow* window) 
+		{
+			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
+
+			WindowCloseEvent event;
+			data.EventCallback(event);
+		});
+
+		glfwSetWindowSizeCallback(m_BaseWindow, [](GLFWwindow* window, int width, int height) 
+		{
+			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
+			data.Width = width;
+			data.Height = height;
+
+			WindowResizeEvent event(width, height);
+			data.EventCallback(event);
+		});
 	}
 
-	void Window::Destroy()
+	void Window::Destroy() const
 	{
 		glfwDestroyWindow(m_BaseWindow);
 		CS_CORE_INFO("Destroyed GLFW window");
@@ -46,7 +67,7 @@ namespace Cosmos
 		CS_CORE_INFO("Terminated GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
 	}
 
-	void Window::Update()
+	void Window::Update() const
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

@@ -6,6 +6,9 @@
 #include <stdint.h>
 #include <time.h>
 //------------------------
+#include <functional>
+#include <sstream>
+//------------------------
 #ifdef CS_PLATFORM_WINDOWS 
 	#include <Windows.h>
 #endif

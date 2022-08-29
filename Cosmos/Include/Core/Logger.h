@@ -9,13 +9,13 @@ namespace Cosmos
 		const char* m_Name;
 	public:
 		Logger(const char* name);
-		~Logger();
+		~Logger() = default;
 
 		void Success(const char* format, ...) const;
 		void Info(const char* format, ...) const;
 		void Warn(const char* format, ...) const;
 		void Error(const char* format, ...) const;
-		char* FormatTime() const;
+		const char* FormatTime() const;
 	};
 
 	class COSMOS_API Log

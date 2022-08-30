@@ -1,18 +1,18 @@
 #include <cspch.h>
 #include "Core/Application.h"
 
-#define WIDTH  3
-#define HEIGHT 2
-#define SCALE  450
-
 namespace Cosmos
 {
+	#define WIDTH  3
+	#define HEIGHT 2
+	#define SCALE  450
+
 	#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application::Application()
 	{
-		CS_CORE_SUCCESS("Created and initialized application");
-		m_Window = new Window(SCALE * WIDTH, SCALE * HEIGHT, "Cosmos Window");
+		CS_CORE_INFO("Created and initialized application");
+		m_Window = std::unique_ptr<Window>(new Window(SCALE * WIDTH, SCALE * HEIGHT, "Cosmos Window"));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
 
@@ -27,6 +27,6 @@ namespace Cosmos
 
 	void Application::OnEvent(Event& e) const
 	{
-		CS_CORE_INFO(e.ToString().c_str());
+		CS_CORE_TRACE(e.ToString().c_str());
 	}
 }

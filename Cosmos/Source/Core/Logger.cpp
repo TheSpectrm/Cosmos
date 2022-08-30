@@ -1,17 +1,16 @@
 #include <cspch.h>
 
-#define CS_RED    4
-#define CS_YELLOW 6
-#define CS_GREEN  2
-#define CS_GRAY   8
-
 namespace Cosmos
 {
-	Logger::Logger(const char* name)
-		: m_Name(name)
-	{ }
+	#define CS_RED    4
+	#define CS_YELLOW 6
+	#define CS_GREEN  2
+	#define CS_GRAY   8
 
-	void Logger::Success(const char* format, ...) const
+	Logger::Logger(const char* name)
+		: m_Name(name) { }
+
+	void Logger::Info(const char* format, ...) const
 	{
 		va_list args;
 		va_start(args, format);
@@ -23,7 +22,7 @@ namespace Cosmos
 		va_end(args);
 	}
 
-	void Logger::Info(const char* format, ...) const
+	void Logger::Trace(const char* format, ...) const
 	{
 		va_list args;
 		va_start(args, format);
@@ -75,7 +74,6 @@ namespace Cosmos
 	void Log::Init()
 	{
 		m_CoreLogger = new Logger("CORE");
-		CS_CORE_SUCCESS("Initialized core and console");
-		CS_CORE_SUCCESS("Completely initialized core logger");
+		CS_CORE_INFO("Initialized core, console, and core logger");
 	}
 }

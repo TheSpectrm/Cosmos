@@ -8,6 +8,7 @@
 //------------------------
 #include <functional>
 #include <sstream>
+#include <memory>
 //------------------------
 #ifdef CS_PLATFORM_WINDOWS 
 	#include <Windows.h>

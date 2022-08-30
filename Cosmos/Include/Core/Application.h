@@ -6,10 +6,9 @@ namespace Cosmos
 {
 	class COSMOS_API Application
 	{
-		Window* m_Window;
+		std::unique_ptr<Window> m_Window;
 	public:
 		Application();
-		~Application() = default;
 
 		void Run() const;
 		void OnEvent(Event& e) const;

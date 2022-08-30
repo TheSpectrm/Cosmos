@@ -9,10 +9,9 @@ namespace Cosmos
 		const char* m_Name;
 	public:
 		Logger(const char* name);
-		~Logger() = default;
 
-		void Success(const char* format, ...) const;
 		void Info(const char* format, ...) const;
+		void Trace(const char* format, ...) const;
 		void Warn(const char* format, ...) const;
 		void Error(const char* format, ...) const;
 		const char* FormatTime() const;
@@ -30,7 +29,7 @@ namespace Cosmos
 // LOGGER MACROS
 #define CS_LOG_INIT()		 Cosmos::Log::Init()
 
-#define CS_CORE_SUCCESS(...) Cosmos::Log::GetCoreLogger()->Success(__VA_ARGS__)
 #define CS_CORE_INFO(...)	 Cosmos::Log::GetCoreLogger()->Info(__VA_ARGS__)
+#define CS_CORE_TRACE(...)	 Cosmos::Log::GetCoreLogger()->Trace(__VA_ARGS__)
 #define CS_CORE_WARN(...)	 Cosmos::Log::GetCoreLogger()->Warn(__VA_ARGS__)
 #define CS_CORE_ERROR(...)	 Cosmos::Log::GetCoreLogger()->Error(__VA_ARGS__)

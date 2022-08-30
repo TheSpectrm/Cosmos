@@ -5,14 +5,16 @@
 
 #define EVENT_FUNC(type) static EventType GetStaticType() { return EventType::type; } \
 						 virtual EventType GetEventType() const override { return GetStaticType(); } \
-						 virtual const char* GetName() const override { return #type "Event"; }
+						 virtual const char* GetName() const override { return #type "Event fired"; }
 
 namespace Cosmos
 {
 	enum class EventType
 	{
 		None = 0,
-		WindowClose, WindowResize
+		WindowClose, WindowResize,
+		KeyPressed, KeyReleased,
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
 	class COSMOS_API Event
@@ -34,10 +36,7 @@ namespace Cosmos
 		Event& m_Event;
 	public:
 		EventDispatcher(Event& event)
-			: m_Event(event)
-		{ }
-
-		~EventDispatcher() = default;
+			: m_Event(event) { }
 
 		template<typename T>
 		bool Dispatch(EventFn<T> func)

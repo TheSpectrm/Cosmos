@@ -34,6 +34,7 @@ namespace Cosmos
 
 		CS_CORE_INFO("Initialized GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
 		glfwSetErrorCallback(GLFWErrorCallback);
+
 		m_BaseWindow = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title, null, null);
 
 		if (!m_BaseWindow)
@@ -66,7 +67,7 @@ namespace Cosmos
 
 		glfwSetKeyCallback(m_BaseWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 
 			switch (action)
 			{
@@ -93,7 +94,7 @@ namespace Cosmos
 
 		glfwSetMouseButtonCallback(m_BaseWindow, [](GLFWwindow* window, int button, int action, int mods)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 
 			switch (action)
 			{
@@ -114,7 +115,7 @@ namespace Cosmos
 
 		glfwSetScrollCallback(m_BaseWindow, [](GLFWwindow* window, double xOffset, double yOffset) 
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 
 			MouseScrolledEvent event((float) xOffset, (float) yOffset);
 			data.EventCallback(event);
@@ -122,7 +123,7 @@ namespace Cosmos
 
 		glfwSetCursorPosCallback(m_BaseWindow, [](GLFWwindow* window, double xPos, double yPos)
 		{
-			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 
 			MouseMovedEvent event((float) xPos, (float) yPos);
 			data.EventCallback(event);

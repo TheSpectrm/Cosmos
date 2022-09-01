@@ -17,11 +17,30 @@ namespace Cosmos
 
 	void Application::Run() const
 	{
+		VAOLoader loader = VAOLoader();
+		Model* model = loader.LoadToVAO({
+			0.0f, 0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f
+		});
+
 		while (m_Running)
 		{
+			glViewport(0, 0, m_Window->m_Data.Width, m_Window->m_Data.Height);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
+
+			// Render the triangle model
+			glBindVertexArray(model->m_VaoID);
+			glEnableVertexAttribArray(0);
+			glDrawArrays(GL_TRIANGLES, 0, model->m_VertexCount);
+			glDisableVertexAttribArray(0);
+			glBindVertexArray(0);
+
 			m_Window->Update();
 		}
+
+		loader.Clean();
 	}
 
 	void Application::OnEvent(Event& e)

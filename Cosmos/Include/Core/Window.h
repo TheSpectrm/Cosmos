@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
 #include "Event/WindowEvent.h"
 #include "Event/KeyEvent.h"
@@ -20,8 +21,9 @@ namespace Cosmos
 		};
 
 		GLFWwindow* m_BaseWindow;
-		WindowData m_Data;
 	public:
+		WindowData m_Data;
+
 		Window(uint32_t width, uint32_t height, const char* title);
 		~Window();
 

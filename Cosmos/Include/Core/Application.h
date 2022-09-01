@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Window.h"
+#include "Graphics/VAOLoader.h"
 
 namespace Cosmos
 {
@@ -12,8 +13,8 @@ namespace Cosmos
 		Application();
 
 		void Run() const;
-		void OnEvent(Event& e);
 	private:
+		void OnEvent(Event& e);
 		bool OnWindowClose(WindowCloseEvent& e);
 	};
 

@@ -3,9 +3,6 @@
 
 namespace Cosmos
 {
-	#define GLFW_MINOR 3
-	#define GLFW_MAJOR 3
-
 	Window::Window(uint32_t width, uint32_t height, const char* title)
 	{
 		m_Data.Width = width;
@@ -28,11 +25,15 @@ namespace Cosmos
 	{
 		if (!glfwInit())
 		{
-			CS_CORE_ERROR("Failed to initialize GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
+			CS_CORE_ERROR("Failed to initialize GLFW 3.3");
 			return;
 		}
 
-		CS_CORE_INFO("Initialized GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
+		CS_CORE_INFO("Initialized GLFW 3.3");
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 		glfwSetErrorCallback(GLFWErrorCallback);
 
 		m_BaseWindow = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title, null, null);
@@ -46,6 +47,9 @@ namespace Cosmos
 		CS_CORE_INFO("Created GLFW window (width=%d, height=%d, title='%s')", m_Data.Width, m_Data.Height, m_Data.Title);
 		glfwMakeContextCurrent(m_BaseWindow);
 		glfwSetWindowUserPointer(m_BaseWindow, &m_Data);
+
+		gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		CS_CORE_INFO("Initialized GLAD 4.6");
 
 		glfwSetWindowCloseCallback(m_BaseWindow, [](GLFWwindow* window) 
 		{
@@ -135,13 +139,11 @@ namespace Cosmos
 		glfwDestroyWindow(m_BaseWindow);
 		CS_CORE_INFO("Destroyed GLFW window");
 		glfwTerminate();
-		CS_CORE_INFO("Terminated GLFW %d.%d", GLFW_MAJOR, GLFW_MINOR);
+		CS_CORE_INFO("Terminated GLFW 3.3 and GLAD 4.6");
 	}
 
 	void Window::Update() const
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		glfwSwapBuffers(m_BaseWindow);
 		glfwPollEvents();
 	}

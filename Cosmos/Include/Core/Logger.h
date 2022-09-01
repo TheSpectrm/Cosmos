@@ -14,6 +14,7 @@ namespace Cosmos
 		void Trace(const char* format, ...) const;
 		void Warn(const char* format, ...) const;
 		void Error(const char* format, ...) const;
+	private:
 		const char* FormatTime() const;
 	};
 

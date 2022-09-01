@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <time.h>
 //------------------------
+#include <vector>
 #include <functional>
 #include <sstream>
 #include <memory>

@@ -19,9 +19,13 @@ namespace Cosmos
 	{
 		VAOLoader loader = VAOLoader();
 		Model* model = loader.LoadToVAO({
-			0.0f, 0.5f, 0.0f,
+			-0.5f, 0.5f, 0.0f,
 			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f
+			0.5f, -0.5f, 0.0f,
+
+			0.5f, -0.5f, 0.0f,
+			0.5f, 0.5f, 0.0f,
+			-0.5f, 0.5f, 0.0f
 		});
 
 		while (m_Running)

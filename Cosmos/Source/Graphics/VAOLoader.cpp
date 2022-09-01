@@ -3,13 +3,14 @@
 
 namespace Cosmos
 {
-	Model* VAOLoader::LoadToVAO(std::vector<float> coords)
+	Model* VAOLoader::LoadToVAO(std::vector<float> coords, std::vector<int> indices)
 	{
 		int vaoID = CreateVAO();
+		BindIndexBuffer(indices);
 		StoreDataAttribute(0, coords);
 		UnbindVAO();
 
-		return new Model(vaoID, coords.size() / 3);
+		return new Model(vaoID, indices.size());
 	}
 
 	void VAOLoader::Clean() const
@@ -34,6 +35,17 @@ namespace Cosmos
 	void VAOLoader::UnbindVAO() const
 	{
 		glBindVertexArray(0);
+	}
+
+	void VAOLoader::BindIndexBuffer(std::vector<int> indices)
+	{
+		GLuint vboID;
+		glGenBuffers(1, &vboID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+		m_Vbos.push_back(vboID);
+
+		int* buffer = &indices[0];
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * indices.size(), buffer, GL_STATIC_DRAW);
 	}
 
 	void VAOLoader::StoreDataAttribute(int attrNumber, std::vector<float> data)

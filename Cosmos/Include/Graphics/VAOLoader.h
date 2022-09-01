@@ -20,11 +20,12 @@ namespace Cosmos
 	public:
 		VAOLoader() = default;
 
-		Model* LoadToVAO(std::vector<float> coords);
+		Model* LoadToVAO(std::vector<float> coords, std::vector<int> indices);
 		void Clean() const;
 	private:
 		int CreateVAO();
 		void UnbindVAO() const;
+		void BindIndexBuffer(std::vector<int> indices);
 		void StoreDataAttribute(int attrNumber, std::vector<float> data);
 	};
 }

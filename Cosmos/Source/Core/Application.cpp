@@ -18,15 +18,20 @@ namespace Cosmos
 	void Application::Run() const
 	{
 		VAOLoader loader = VAOLoader();
-		Model* model = loader.LoadToVAO({
+
+		std::vector<float> vertices({
 			-0.5f, 0.5f, 0.0f,
 			-0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,
-
-			0.5f, -0.5f, 0.0f,
 			0.5f, 0.5f, 0.0f,
-			-0.5f, 0.5f, 0.0f
 		});
+
+		std::vector<int> indices({
+			0, 1, 3,
+			3, 1, 2
+		});
+
+		Model* model = loader.LoadToVAO(vertices, indices);
 
 		while (m_Running)
 		{
@@ -37,7 +42,7 @@ namespace Cosmos
 			// Render the triangle model
 			glBindVertexArray(model->m_VaoID);
 			glEnableVertexAttribArray(0);
-			glDrawArrays(GL_TRIANGLES, 0, model->m_VertexCount);
+			glDrawElements(GL_TRIANGLES, model->m_VertexCount, GL_UNSIGNED_INT, null);
 			glDisableVertexAttribArray(0);
 			glBindVertexArray(0);
 

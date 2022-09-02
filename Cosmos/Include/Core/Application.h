@@ -2,6 +2,7 @@
 
 #include "Core/Window.h"
 #include "Graphics/VAOLoader.h"
+#include "Graphics/Shader.h"
 
 namespace Cosmos
 {
@@ -17,6 +18,7 @@ namespace Cosmos
 
 		void OnEvent(Event& e);
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 	};
 
 	// To be defined in a Cosmos client

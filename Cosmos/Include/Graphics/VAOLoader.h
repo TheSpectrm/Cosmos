@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad/glad.h>
+#include <GLAD/glad.h>
 
 namespace Cosmos
 {
@@ -27,6 +27,6 @@ namespace Cosmos
 		int CreateVAO();
 		void UnbindVAO() const;
 		void BindIndexBuffer(std::vector<int> indices);
-		void StoreDataAttribute(int attrNumber, std::vector<float> data);
+		void StoreDataAttrib(int attrNumber, std::vector<float> data);
 	};
 }

@@ -7,13 +7,14 @@ namespace Cosmos
 {
 	class COSMOS_API Application
 	{
-		bool m_Running;
-		std::unique_ptr<Window> m_Window;
 	public:
 		Application();
 
 		void Run() const;
 	private:
+		bool m_Running;
+		std::unique_ptr<Window> m_Window;
+
 		void OnEvent(Event& e);
 		bool OnWindowClose(WindowCloseEvent& e);
 	};

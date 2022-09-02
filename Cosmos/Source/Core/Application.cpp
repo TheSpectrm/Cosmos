@@ -11,8 +11,8 @@ namespace Cosmos
 	{
 		CS_CORE_INFO("Created and initialized application");
 		m_Window = std::unique_ptr<Window>(new Window(SCALE * WIDTH, SCALE * HEIGHT, "Cosmos Window"));
-		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		m_Running = true;
+		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 	}
 
 	void Application::Run() const
@@ -41,10 +41,7 @@ namespace Cosmos
 
 			// Render the triangle model
 			glBindVertexArray(model->m_VaoID);
-			glEnableVertexAttribArray(0);
 			glDrawElements(GL_TRIANGLES, model->m_VertexCount, GL_UNSIGNED_INT, null);
-			glDisableVertexAttribArray(0);
-			glBindVertexArray(0);
 
 			m_Window->Update();
 		}

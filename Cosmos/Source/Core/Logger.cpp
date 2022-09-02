@@ -7,58 +7,28 @@ namespace Cosmos
 	#define CS_GREEN  2
 	#define CS_GRAY   8
 
+	#define CS_IMPLEMENT_LOGGER_FUNC(name, color)						 \
+	void name(const char* format, ...) const							 \
+	{																	 \
+		va_list args;													 \
+		va_start(args, format);											 \
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color); \
+		printf("%s ", FormatTime().c_str());							 \
+		printf("%s: ", m_Name);											 \
+		vprintf(format, args);											 \
+		putchar('\n');													 \
+		va_end(args);													 \
+	}
+
 	Logger::Logger(const char* name)
 		: m_Name(name) { }
 
-	void Logger::Info(const char* format, ...) const
-	{
-		va_list args;
-		va_start(args, format);
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CS_GREEN);
-		printf("%s ", FormatTime());
-		printf("%s: ", m_Name);
-		vprintf(format, args);
-		putchar('\n');
-		va_end(args);
-	}
+	CS_IMPLEMENT_LOGGER_FUNC(Logger::Info, CS_GREEN)
+	CS_IMPLEMENT_LOGGER_FUNC(Logger::Trace, CS_GRAY)
+	CS_IMPLEMENT_LOGGER_FUNC(Logger::Warn, CS_YELLOW)
+	CS_IMPLEMENT_LOGGER_FUNC(Logger::Error, CS_RED)
 
-	void Logger::Trace(const char* format, ...) const
-	{
-		va_list args;
-		va_start(args, format);
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CS_GRAY);
-		printf("%s ", FormatTime());
-		printf("%s: ", m_Name);
-		vprintf(format, args);
-		putchar('\n');
-		va_end(args);
-	}
-
-	void Logger::Warn(const char* format, ...) const
-	{
-		va_list args;
-		va_start(args, format);
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CS_YELLOW);
-		printf("%s ", FormatTime());
-		printf("%s: ", m_Name);
-		vprintf(format, args);
-		putchar('\n');
-		va_end(args);
-	}
-
-	void Logger::Error(const char* format, ...) const
-	{
-		va_list args;
-		va_start(args, format);
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CS_RED);
-		printf("%s ", FormatTime());
-		printf("%s: ", m_Name);
-		vprintf(format, args);
-		putchar('\n');
-		va_end(args);
-	}
-
-	const char* Logger::FormatTime() const
+	std::string Logger::FormatTime() const
 	{
 		time_t t = time(0);
 		tm* currentTime = localtime(&t);

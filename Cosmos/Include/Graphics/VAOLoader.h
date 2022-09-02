@@ -15,14 +15,15 @@ namespace Cosmos
 
 	class VAOLoader
 	{
-		std::vector<int> m_Vaos;
-		std::vector<int> m_Vbos;
 	public:
 		VAOLoader() = default;
 
 		Model* LoadToVAO(std::vector<float> coords, std::vector<int> indices);
 		void Clean() const;
 	private:
+		std::vector<int> m_Vaos;
+		std::vector<int> m_Vbos;
+
 		int CreateVAO();
 		void UnbindVAO() const;
 		void BindIndexBuffer(std::vector<int> indices);

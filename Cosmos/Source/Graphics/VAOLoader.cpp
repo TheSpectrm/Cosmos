@@ -15,11 +15,8 @@ namespace Cosmos
 
 	void VAOLoader::Clean() const
 	{
-		for (GLuint vao : m_Vaos)
-			glDeleteVertexArrays(m_Vaos.size(), &vao);
-
-		for (GLuint vbo : m_Vbos)
-			glDeleteBuffers(m_Vbos.size(), &vbo);
+		for (GLuint vao : m_Vaos) glDeleteVertexArrays(m_Vaos.size(), &vao);
+		for (GLuint vbo : m_Vbos) glDeleteBuffers(m_Vbos.size(), &vbo);
 	}
 
 	int VAOLoader::CreateVAO()
@@ -57,7 +54,9 @@ namespace Cosmos
 
 		float* buffer = &data[0];
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * data.size(), buffer, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(attrNumber, 3, GL_FLOAT, GL_FALSE, 0, null);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
 	}
 }

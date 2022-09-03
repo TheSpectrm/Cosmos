@@ -11,6 +11,8 @@ namespace Cosmos
 	{
 		CS_CORE_INFO("Created and initialized application");
 		m_Window = std::unique_ptr<Window>(new Window(SCALE * WIDTH, SCALE * HEIGHT, "Cosmos"));
+		m_VAOLoader = std::unique_ptr<VAOLoader>(new VAOLoader());
+		m_Shader = std::unique_ptr<StaticShader>(new StaticShader());
 		m_Running = true;
 
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
@@ -30,16 +32,27 @@ namespace Cosmos
 			3, 1, 2
 		});
 
-		VAOLoader* loader = new VAOLoader();
-		StaticShader* shader = new StaticShader();
-		Model* model = loader->LoadToVAO(vertices, indices);
-		shader->Start();
+		Model* model = m_VAOLoader->LoadToVAO(vertices, indices);
+
+		vec2 va(3.0f, 3.0f);
+		vec2 vb = va + vec2(2.0f, 2.0f);
+		CS_CORE_TRACE(vb.ToString().c_str());
+
+		vec3 vc(3.0f, 3.0f, 3.0f);
+		vec3 vd = vc - vec3(2.0f, 2.0f, 2.0f);
+		CS_CORE_TRACE(vd.ToString().c_str());
+
+		vec4 ve(3.0f, 3.0f, 3.0f, 3.0f);
+		vec4 vf = ve * vec4(2.0f, 2.0f, 2.0f, 2.0f);
+		CS_CORE_TRACE(vf.ToString().c_str());
+
+		m_Shader->Start();
 
 		// Main program loop
 		while (m_Running)
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
+			glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 
 			// Render the triangle model
 			glBindVertexArray(model->m_VaoID);
@@ -47,9 +60,13 @@ namespace Cosmos
 
 			m_Window->Update();
 		}
+	}
 
-		loader->Clean();
-		shader->Clean();
+	void Application::Stop()
+	{
+		m_Running = false;
+		m_VAOLoader->Clean();
+		m_Shader->Clean();
 	}
 
 	void Application::OnEvent(Event& e)
@@ -70,7 +87,7 @@ namespace Cosmos
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
-		m_Running = false;
+		Stop();
 		return true;
 	}
 

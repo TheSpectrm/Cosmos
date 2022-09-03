@@ -18,13 +18,13 @@ namespace Cosmos
 		for (GLuint vao : m_Vaos) 
 		{
 			CS_CORE_TRACE("Deleting Vertex Array Object (VAO) (id=%d)", vao);
-			glDeleteVertexArrays((GLsizei)m_Vaos.size(), &vao);
+			glDeleteVertexArrays((GLsizei) m_Vaos.size(), &vao);
 		}
 
 		for (GLuint vbo : m_Vbos)
 		{
 			CS_CORE_TRACE("Deleting Vertex Buffer Object (VBO) (id=%d)", vbo);
-			glDeleteBuffers((GLsizei)m_Vbos.size(), &vbo);
+			glDeleteBuffers((GLsizei) m_Vbos.size(), &vbo);
 		}
 	}
 

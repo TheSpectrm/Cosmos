@@ -14,13 +14,13 @@ namespace Cosmos
 		va_start(args, format);											 \
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color); \
 		printf("%s ", FormatTime().c_str());							 \
-		printf("%s: ", m_Name);											 \
+		printf("%s: ", m_Name.c_str());									 \
 		vprintf(format, args);											 \
 		putchar('\n');													 \
 		va_end(args);													 \
 	}
 
-	Logger::Logger(const char* name)
+	Logger::Logger(std::string name)
 		: m_Name(name) { }
 
 	CS_IMPLEMENT_LOGGER_FUNC(Logger::Info, CS_GREEN)

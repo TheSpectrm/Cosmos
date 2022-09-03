@@ -15,7 +15,7 @@ namespace Cosmos
 		struct WindowData
 		{
 			uint32_t Width, Height;
-			const char* Title;
+			std::string Title;
 
 			EventCallbackFn EventCallback;
 		};
@@ -24,7 +24,7 @@ namespace Cosmos
 	public:
 		WindowData m_Data;
 
-		Window(uint32_t width, uint32_t height, const char* title);
+		Window(uint32_t width, uint32_t height, const std::string& title);
 		~Window();
 
 		void Create();

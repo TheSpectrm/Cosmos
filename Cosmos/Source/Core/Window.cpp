@@ -3,7 +3,7 @@
 
 namespace Cosmos
 {
-	Window::Window(uint32_t width, uint32_t height, const char* title)
+	Window::Window(uint32_t width, uint32_t height, const std::string& title)
 	{
 		m_Data.Width = width;
 		m_Data.Height = height;
@@ -36,7 +36,7 @@ namespace Cosmos
 
 		glfwSetErrorCallback(GLFWErrorCallback);
 
-		m_BaseWindow = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title, null, null);
+		m_BaseWindow = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), null, null);
 
 		if (!m_BaseWindow)
 		{
@@ -44,7 +44,7 @@ namespace Cosmos
 			return;
 		}
 
-		CS_CORE_INFO("Created GLFW window (width=%d, height=%d, title='%s')", m_Data.Width, m_Data.Height, m_Data.Title);
+		CS_CORE_INFO("Created GLFW window (width=%d, height=%d, title='%s')", m_Data.Width, m_Data.Height, m_Data.Title.c_str());
 		glfwMakeContextCurrent(m_BaseWindow);
 		glfwSetWindowUserPointer(m_BaseWindow, &m_Data);
 

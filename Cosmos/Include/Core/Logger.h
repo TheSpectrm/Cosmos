@@ -13,17 +13,17 @@ namespace Cosmos
 	#define CS_CORE_WARN(...)	 Cosmos::Log::GetCoreLogger()->Warn(__VA_ARGS__)
 	#define CS_CORE_ERROR(...)	 Cosmos::Log::GetCoreLogger()->Error(__VA_ARGS__)
 
-	class COSMOS_API Logger
+	class Logger
 	{
 	public:
-		Logger(const char* name);
+		COSMOS_API Logger(std::string name);
 
-		void Info(const char* format, ...) const;
-		void Trace(const char* format, ...) const;
-		void Warn(const char* format, ...) const;
-		void Error(const char* format, ...) const;
+		COSMOS_API void Info(const char* format, ...) const;
+		COSMOS_API void Trace(const char* format, ...) const;
+		COSMOS_API void Warn(const char* format, ...) const;
+		COSMOS_API void Error(const char* format, ...) const;
 	private:
-		const char* m_Name;
+		std::string m_Name;
 
 		std::string FormatTime() const;
 	};

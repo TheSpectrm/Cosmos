@@ -30,12 +30,12 @@ namespace Cosmos
 			3, 1, 2
 		});
 
-		VAOLoader loader = VAOLoader();
-		StaticShader shader = StaticShader();
-		Model* model = loader.LoadToVAO(vertices, indices);
+		VAOLoader* loader = new VAOLoader();
+		StaticShader* shader = new StaticShader();
+		Model* model = loader->LoadToVAO(vertices, indices);
+		shader->Start();
 
-		shader.Start();
-
+		// Main program loop
 		while (m_Running)
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -43,13 +43,13 @@ namespace Cosmos
 
 			// Render the triangle model
 			glBindVertexArray(model->m_VaoID);
-			glDrawElements(GL_TRIANGLES, model->m_VertexCount, GL_UNSIGNED_INT, null);
+			glDrawElements(GL_TRIANGLES, (GLsizei) model->m_VertexCount, GL_UNSIGNED_INT, null);
 
 			m_Window->Update();
 		}
 
-		loader.Clean();
-		shader.Clean();
+		loader->Clean();
+		shader->Clean();
 	}
 
 	void Application::OnEvent(Event& e)

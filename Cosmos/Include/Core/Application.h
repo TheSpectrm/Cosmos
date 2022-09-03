@@ -6,12 +6,12 @@
 
 namespace Cosmos
 {
-	class COSMOS_API Application
+	class Application
 	{
 	public:
-		Application();
+		COSMOS_API Application();
 
-		void Run() const;
+		COSMOS_API void Run() const;
 	private:
 		bool m_Running;
 		std::unique_ptr<Window> m_Window;

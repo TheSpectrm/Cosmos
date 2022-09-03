@@ -17,7 +17,7 @@ namespace Cosmos
 	private:
 		int m_ProgramID, m_VertShaderID, m_FragShaderID;
 
-		int CreateShader(std::string srcFile, int type) const;
+		int Create(std::string srcPath, int type) const;
 	protected:
 		void BindAttribute(int attribute, const char* variableName);
 	};
@@ -26,12 +26,9 @@ namespace Cosmos
 	{
 	public:
 		StaticShader()
-			: Shader("../../Cosmos/Source/Shaders/Shader.vert", "../../Cosmos/Source/Shaders/Shader.frag") { }
+			: Shader("Shader.vert", "Shader.frag") { }
 
 	protected:
-		void BindAttributes()
-		{
-			BindAttribute(0, "position");
-		}
+		void BindAttributes() { BindAttribute(0, "position"); }
 	};
 }

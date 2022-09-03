@@ -3,16 +3,16 @@
 #include <cspch.h>
 #include "Core/Core.h"
 
-// LOGGER MACROS
-#define CS_LOG_INIT()		 Cosmos::Log::Init()
-
-#define CS_CORE_INFO(...)	 Cosmos::Log::GetCoreLogger()->Info(__VA_ARGS__)
-#define CS_CORE_TRACE(...)	 Cosmos::Log::GetCoreLogger()->Trace(__VA_ARGS__)
-#define CS_CORE_WARN(...)	 Cosmos::Log::GetCoreLogger()->Warn(__VA_ARGS__)
-#define CS_CORE_ERROR(...)	 Cosmos::Log::GetCoreLogger()->Error(__VA_ARGS__)
-
 namespace Cosmos
 {
+	// LOGGER MACROS
+	#define CS_LOG_INIT()		 Cosmos::Log::Init()
+
+	#define CS_CORE_INFO(...)	 Cosmos::Log::GetCoreLogger()->Info(__VA_ARGS__)
+	#define CS_CORE_TRACE(...)	 Cosmos::Log::GetCoreLogger()->Trace(__VA_ARGS__)
+	#define CS_CORE_WARN(...)	 Cosmos::Log::GetCoreLogger()->Warn(__VA_ARGS__)
+	#define CS_CORE_ERROR(...)	 Cosmos::Log::GetCoreLogger()->Error(__VA_ARGS__)
+
 	class COSMOS_API Logger
 	{
 	public:

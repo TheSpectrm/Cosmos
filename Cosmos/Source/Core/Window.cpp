@@ -139,7 +139,8 @@ namespace Cosmos
 		glfwDestroyWindow(m_BaseWindow);
 		CS_CORE_INFO("Destroyed GLFW window");
 		glfwTerminate();
-		CS_CORE_INFO("Terminated GLFW 3.3 and GLAD 4.6");
+		CS_CORE_INFO("Terminated GLFW 3.3");
+		CS_CORE_INFO("Terminated GLAD 4.6");
 	}
 
 	void Window::Update() const

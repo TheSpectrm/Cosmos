@@ -7,9 +7,10 @@ namespace Cosmos
 	class Model
 	{
 	public:
-		int m_VaoID, m_VertexCount;
+		int m_VaoID;
+		size_t m_VertexCount;
 
-		Model(int vaoID, int vertexCount)
+		Model(int vaoID, size_t vertexCount)
 			: m_VaoID(vaoID), m_VertexCount(vertexCount) { }
 	};
 

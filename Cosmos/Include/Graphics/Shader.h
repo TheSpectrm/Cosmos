@@ -26,7 +26,7 @@ namespace Cosmos
 	{
 	public:
 		StaticShader()
-			: Shader("C:/Cosmos/Cosmos/Source/Shaders/Shader.vert", "C:/Cosmos/Cosmos/Source/Shaders/Shader.frag") { }
+			: Shader("../../Cosmos/Source/Shaders/Shader.vert", "../../Cosmos/Source/Shaders/Shader.frag") { }
 
 	protected:
 		void BindAttributes()

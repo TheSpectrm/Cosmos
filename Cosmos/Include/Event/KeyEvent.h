@@ -4,40 +4,38 @@
 
 namespace Cosmos
 {
-	class COSMOS_API KeyEvent : public Event
+	struct COSMOS_API KeyEvent : Event
 	{
 	protected:
 		int m_KeyCode;
 
 		KeyEvent(int keycode)
 			: m_KeyCode(keycode) { }
-
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		int GetKeyCode() const { return m_KeyCode; }
 	};
 
-	class COSMOS_API KeyPressedEvent : public KeyEvent
+	struct COSMOS_API KeyPressedEvent : KeyEvent
 	{
-		int m_IsRepeat;
-	public:
-		KeyPressedEvent(int keycode, int isRepeat)
-			: KeyEvent(keycode), m_IsRepeat(isRepeat) { }
+		KeyPressedEvent(int keycode, int repeat)
+			: KeyEvent(keycode), m_Repeat(repeat) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent fired (key=" << m_KeyCode << ", repeat=" << m_IsRepeat << ")";
+			ss << "KeyPressedEvent fired (key=" << m_KeyCode << ", repeat=" << m_Repeat << ")";
 			return ss.str();
 		}
 
-		inline int GetRepeatCount() const { return m_IsRepeat; }
+		int GetRepeatCount() const { return m_Repeat; }
 
 		EVENT_FUNC(KeyPressed)
+	private:
+		int m_Repeat;
 	};
 
-	class COSMOS_API KeyReleasedEvent : public KeyEvent
+	struct COSMOS_API KeyReleasedEvent : KeyEvent
 	{
-	public:
 		KeyReleasedEvent(int keycode)
 			: KeyEvent(keycode) { }
 

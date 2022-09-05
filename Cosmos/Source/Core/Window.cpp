@@ -3,6 +3,11 @@
 
 namespace Cosmos
 {
+	static void GLFWErrorCallback(int error, const char* description)
+	{
+		CS_CORE_ERROR("GLFW Error %d: %s", error, description);
+	}
+
 	Window::Window(uint32_t width, uint32_t height, const std::string& title)
 	{
 		m_Data.Width = width;
@@ -14,11 +19,6 @@ namespace Cosmos
 	Window::~Window() 
 	{ 
 		Destroy();
-	}
-
-	static void GLFWErrorCallback(int error, const char* description)
-	{
-		CS_CORE_ERROR("GLFW Error %d: %s", error, description);
 	}
 
 	void Window::Create()
@@ -48,7 +48,7 @@ namespace Cosmos
 		glfwMakeContextCurrent(m_BaseWindow);
 		glfwSetWindowUserPointer(m_BaseWindow, &m_Data);
 
-		gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 		CS_CORE_INFO("Initialized GLAD 4.6");
 
 		glfwSetWindowCloseCallback(m_BaseWindow, [](GLFWwindow* window) 

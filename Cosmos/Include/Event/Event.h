@@ -3,9 +3,9 @@
 #include <cspch.h>
 #include "Core/Core.h"
 
-#define EVENT_FUNC(type)													\
-virtual EventType GetEventType() const override { return EventType::type; } \
-virtual const char* GetName() const override { return #type "Event fired"; }
+#define EVENT_FUNC(type)														\
+	virtual EventType GetEventType() const override { return EventType::type; } \
+	virtual const char* GetName() const override { return #type "Event fired"; }
 
 namespace Cosmos
 {
@@ -17,9 +17,8 @@ namespace Cosmos
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
-	class COSMOS_API Event
+	struct COSMOS_API Event
 	{
-	public:
 		bool m_Handled = false;
 
 		virtual EventType GetEventType() const = 0;

@@ -7,18 +7,18 @@ namespace Cosmos
 	#define CS_GREEN  2
 	#define CS_GRAY   8
 
-	#define CS_IMPLEMENT_LOGGER_FUNC(name, color)						 \
-	void name(const char* format, ...) const							 \
-	{																	 \
-		va_list args;													 \
-		va_start(args, format);											 \
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color); \
-		printf("%s ", FormatTime().c_str());							 \
-		printf("%s: ", m_Name.c_str());									 \
-		vprintf(format, args);											 \
-		putchar('\n');													 \
-		va_end(args);													 \
-	}
+	#define CS_IMPLEMENT_LOGGER_FUNC(name, color)							 \
+		void name(const char* format, ...) const							 \
+		{																	 \
+			va_list args;													 \
+			va_start(args, format);											 \
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color); \
+			printf("%s ", FormatTime().c_str());							 \
+			printf("%s: ", m_Name.c_str());									 \
+			vprintf(format, args);											 \
+			putchar('\n');													 \
+			va_end(args);													 \
+		}
 
 	Logger::Logger(std::string name)
 		: m_Name(name) { }

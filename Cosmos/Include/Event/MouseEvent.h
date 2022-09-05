@@ -4,15 +4,13 @@
 
 namespace Cosmos
 {
-	class COSMOS_API MouseMovedEvent : public Event
+	struct COSMOS_API MouseMovedEvent : Event
 	{
-		float m_MouseX, m_MouseY;
-	public:
 		MouseMovedEvent(float x, float y)
 			: m_MouseX(x), m_MouseY(y) { }
 
-		inline float GetX() const { return m_MouseX; }
-		inline float GetY() const { return m_MouseY; }
+		float GetX() const { return m_MouseX; }
+		float GetY() const { return m_MouseY; }
 
 		std::string ToString() const override
 		{
@@ -22,17 +20,17 @@ namespace Cosmos
 		}
 
 		EVENT_FUNC(MouseMoved)
+	private:
+		float m_MouseX, m_MouseY;
 	};
 
-	class COSMOS_API MouseScrolledEvent : public Event
+	struct COSMOS_API MouseScrolledEvent : Event
 	{
-		float m_XOffset, m_YOffset;
-	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
 			: m_XOffset(xOffset), m_YOffset(yOffset) { }
 
-		inline float GetXOffset() const { return m_XOffset; }
-		inline float GetYOffset() const { return m_YOffset; }
+		float GetXOffset() const { return m_XOffset; }
+		float GetYOffset() const { return m_YOffset; }
 
 		std::string ToString() const override
 		{
@@ -42,9 +40,11 @@ namespace Cosmos
 		}
 
 		EVENT_FUNC(MouseScrolled)
+	private:
+		float m_XOffset, m_YOffset;
 	};
 
-	class COSMOS_API MouseButtonEvent : public Event
+	struct COSMOS_API MouseButtonEvent : Event
 	{
 	protected:
 		int m_Button;
@@ -53,12 +53,11 @@ namespace Cosmos
 			: m_Button(button) { }
 
 	public:
-		inline int GetMouseButton() const { return m_Button; }
+		int GetMouseButton() const { return m_Button; }
 	};
 
-	class COSMOS_API MouseButtonPressedEvent : public MouseButtonEvent
+	struct COSMOS_API MouseButtonPressedEvent : MouseButtonEvent
 	{
-	public:
 		MouseButtonPressedEvent(int button)
 			: MouseButtonEvent(button) { }
 
@@ -72,9 +71,8 @@ namespace Cosmos
 		EVENT_FUNC(MouseButtonPressed)
 	};
 
-	class COSMOS_API MouseButtonReleasedEvent : public MouseButtonEvent
+	struct COSMOS_API MouseButtonReleasedEvent : MouseButtonEvent
 	{
-	public:
 		MouseButtonReleasedEvent(int button)
 			: MouseButtonEvent(button) { }
 

@@ -1,5 +1,4 @@
 #include <cspch.h>
-#include "Core/Logger.h"
 #include "Graphics/Shader.h"
 
 namespace Cosmos
@@ -14,10 +13,10 @@ namespace Cosmos
 
 		glAttachShader(m_ProgramID, m_VertShaderID);
 		glAttachShader(m_ProgramID, m_FragShaderID);
+		BindAttrib(0, "position");
+
 		glLinkProgram(m_ProgramID);
 		glValidateProgram(m_ProgramID);
-
-		BindAttributes();
 	}
 
 	void Shader::Start() const
@@ -41,9 +40,29 @@ namespace Cosmos
 		glDeleteProgram(m_ProgramID);
 	}
 
-	void Shader::BindAttribute(int attribute, const char* variableName)
+	void Shader::LoadFloat(int location, float value) const
 	{
-		glBindAttribLocation(m_ProgramID, attribute, variableName);
+		glUniform1f(location, value);
+	}
+
+	void Shader::LoadVector(int location, csm::vec3 vector) const
+	{
+		glUniform3f(location, vector.x, vector.y, vector.z);
+	}
+
+	void Shader::LoadBoolean(int location, bool value) const
+	{
+		glUniform1f(location, value ? 1.0f : 0.0f);
+	}
+
+	void Shader::LoadMatrix(int location, csm::mat4 matrix) const
+	{
+		glUniformMatrix4fv(location, 1, GL_FALSE, matrix.m);
+	}
+
+	int Shader::GetUniformLocation(std::string uniformName) const
+	{
+		return glGetUniformLocation(m_ProgramID, uniformName.c_str());
 	}
 
 	int Shader::Create(std::string srcFile, int type) const
@@ -66,8 +85,7 @@ namespace Cosmos
 
 		srcText = str.c_str();
 
-		int compiled = false;
-		int shaderID = glCreateShader(type);
+		int compiled, shaderID = glCreateShader(type);
 		glShaderSource(shaderID, 1, &srcText, null);
 		glCompileShader(shaderID);
 		glGetShaderiv(shaderID, GL_COMPILE_STATUS, &compiled);
@@ -91,5 +109,10 @@ namespace Cosmos
 		CS_CORE_INFO("Created OpenGL %s shader (id=%d)", CS_SHADER_TYPE(type), shaderID);
 
 		return shaderID;
+	}
+
+	void Shader::BindAttrib(int attribute, const char* variableName)
+	{
+		glBindAttribLocation(m_ProgramID, attribute, variableName);
 	}
 }

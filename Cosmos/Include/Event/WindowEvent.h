@@ -4,18 +4,15 @@
 
 namespace Cosmos
 {
-	class COSMOS_API WindowCloseEvent : public Event
+	struct COSMOS_API WindowCloseEvent : Event
 	{
-	public:
 		WindowCloseEvent() = default;
 
 		EVENT_FUNC(WindowClose)
 	};
 
-	class COSMOS_API WindowResizeEvent : public Event
+	struct COSMOS_API WindowResizeEvent : Event
 	{
-		uint32_t m_Width, m_Height;
-	public:
 		WindowResizeEvent(uint32_t width, uint32_t height)
 			: m_Width(width), m_Height(height) { }
 
@@ -27,5 +24,7 @@ namespace Cosmos
 		}
 
 		EVENT_FUNC(WindowResize)
+	private:
+		uint32_t m_Width, m_Height;
 	};
 }

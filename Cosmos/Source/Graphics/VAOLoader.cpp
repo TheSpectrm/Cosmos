@@ -7,7 +7,7 @@ namespace Cosmos
 	{
 		GLuint vaoID = CreateVAO();
 		BindIndexBuffer(indices);
-		StoreDataAttrib(0, coords);
+		StoreAttrib(0, coords);
 		UnbindVAO();
 
 		return new Model(vaoID, indices.size());
@@ -20,7 +20,6 @@ namespace Cosmos
 			CS_CORE_TRACE("Deleting Vertex Array Object (VAO) (id=%d)", vao);
 			glDeleteVertexArrays((GLsizei) m_Vaos.size(), &vao);
 		}
-
 		for (GLuint vbo : m_Vbos)
 		{
 			CS_CORE_TRACE("Deleting Vertex Buffer Object (VBO) (id=%d)", vbo);
@@ -52,11 +51,13 @@ namespace Cosmos
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
 		m_Vbos.push_back(vboID);
 
+		CS_CORE_INFO("Generated Vertex Buffer Object (VBO) (id=%d)", vboID);
+
 		int* buffer = &indices[0];
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * indices.size(), buffer, GL_STATIC_DRAW);
 	}
 
-	void VAOLoader::StoreDataAttrib(int attrNumber, std::vector<float> data)
+	void VAOLoader::StoreAttrib(int attrNumber, std::vector<float> data)
 	{
 		GLuint vboID;
 		glGenBuffers(1, &vboID);

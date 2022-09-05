@@ -1,5 +1,6 @@
 #pragma once
 
+// DLL import and export detection
 #ifdef CS_PLATFORM_WINDOWS
 	#ifdef CS_BUILD_DLL
 		#define COSMOS_API __declspec(dllexport)

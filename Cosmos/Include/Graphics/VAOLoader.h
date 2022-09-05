@@ -4,9 +4,8 @@
 
 namespace Cosmos
 {
-	class Model
+	struct Model
 	{
-	public:
 		int m_VaoID;
 		size_t m_VertexCount;
 
@@ -22,12 +21,12 @@ namespace Cosmos
 		Model* LoadToVAO(std::vector<float> coords, std::vector<int> indices);
 		void Clean() const;
 	private:
-		std::vector<int> m_Vaos;
-		std::vector<int> m_Vbos;
-
 		int CreateVAO();
 		void UnbindVAO() const;
 		void BindIndexBuffer(std::vector<int> indices);
-		void StoreDataAttrib(int attrNumber, std::vector<float> data);
+		void StoreAttrib(int attrNumber, std::vector<float> data);
+
+		std::vector<int> m_Vaos;
+		std::vector<int> m_Vbos;
 	};
 }

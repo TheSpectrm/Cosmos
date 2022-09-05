@@ -20,33 +20,22 @@ namespace Cosmos
 
 	void Application::Run() const
 	{
-		std::vector<float> vertices({
+		Model* model = m_VAOLoader->LoadToVAO({
+			// Vertices
 			-0.5f, 0.5f, 0.0f,
 			-0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,
 			0.5f, 0.5f, 0.0f,
-		});
-
-		std::vector<int> indices({
+		}, {
+			// Indices
 			0, 1, 3,
 			3, 1, 2
 		});
 
-		Model* model = m_VAOLoader->LoadToVAO(vertices, indices);
-
-		vec2 va(3.0f, 3.0f);
-		vec2 vb = va + vec2(2.0f, 2.0f);
-		CS_CORE_TRACE(vb.ToString().c_str());
-
-		vec3 vc(3.0f, 3.0f, 3.0f);
-		vec3 vd = vc - vec3(2.0f, 2.0f, 2.0f);
-		CS_CORE_TRACE(vd.ToString().c_str());
-
-		vec4 ve(3.0f, 3.0f, 3.0f, 3.0f);
-		vec4 vf = ve * vec4(2.0f, 2.0f, 2.0f, 2.0f);
-		CS_CORE_TRACE(vf.ToString().c_str());
-
-		m_Shader->Start();
+		csm::mat4 modelMatrix = csm::identity();
+		csm::translate(modelMatrix, csm::vec3(0.0f, 0.5f, 0.0f));
+		csm::rotate(modelMatrix, 45.0f, csm::vec3(0.0f, 0.0f, 1.0f));
+		csm::scale(modelMatrix, csm::vec3(0.5f, 0.5f, 0.5f));
 
 		// Main program loop
 		while (m_Running)
@@ -54,10 +43,14 @@ namespace Cosmos
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 
-			// Render the triangle model
+			m_Shader->Start();
+
 			glBindVertexArray(model->m_VaoID);
+
+			m_Shader->LoadMatrix(m_Shader->GetUniformLocation("modelMatrix"), modelMatrix);
 			glDrawElements(GL_TRIANGLES, (GLsizei) model->m_VertexCount, GL_UNSIGNED_INT, null);
 
+			m_Shader->Stop();
 			m_Window->Update();
 		}
 	}

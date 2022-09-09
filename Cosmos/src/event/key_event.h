@@ -4,7 +4,7 @@
 
 namespace Cosmos
 {
-	struct COSMOS_API KeyEvent : Event
+	struct CS_API KeyEvent : Event
 	{
 	protected:
 		int m_KeyCode;
@@ -15,7 +15,7 @@ namespace Cosmos
 		int GetKeyCode() const { return m_KeyCode; }
 	};
 
-	struct COSMOS_API KeyPressedEvent : KeyEvent
+	struct CS_API KeyPressedEvent : KeyEvent
 	{
 	private:
 		int m_Repeat;
@@ -35,7 +35,7 @@ namespace Cosmos
 		EVENT_FUNC(KeyPressed)
 	};
 
-	struct COSMOS_API KeyReleasedEvent : KeyEvent
+	struct CS_API KeyReleasedEvent : KeyEvent
 	{
 		KeyReleasedEvent(int keycode)
 			: KeyEvent(keycode) { }

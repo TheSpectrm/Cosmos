@@ -1,11 +1,14 @@
 #pragma once
 
+// Disable warning C4251 (MSVC only)
+#pragma warning (disable:4251)
+
 // DLL import and export detection
 #ifdef CS_PLATFORM_WINDOWS
 	#ifdef CS_BUILD_DLL
-		#define COSMOS_API __declspec(dllexport)
+		#define CS_API __declspec(dllexport)
 	#else
-		#define COSMOS_API __declspec(dllimport)
+		#define CS_API __declspec(dllimport)
 	#endif
 #else
 	#error "Cosmos Engine only supports Windows for now!"
@@ -18,7 +21,7 @@
 	#define CS_BUILD_MINGW
 #endif
 
-// Undefine the macros defined by some headers
+// Undefine the macros defined by some dependencies
 #ifdef near
 	#undef near
 #endif
@@ -28,7 +31,7 @@
 
 // Define a custom null
 #ifdef __cplusplus
-	#define null 0
+	#define null nullptr
 #else
 	#define null ((void*) 0)
 #endif

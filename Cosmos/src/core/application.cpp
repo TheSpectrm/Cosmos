@@ -67,9 +67,11 @@ namespace Cosmos
 		});
 
 		cml::mat4 modelMatrix = cml::identity();
-		cml::translate(modelMatrix, cml::vec3(-0.5f, 0.5f, 0.0f));
-		cml::rotate(modelMatrix, 60.0f, cml::vec3(0.0f, 0.0f, 1.0f));
-		cml::scale(modelMatrix, cml::vec3(0.3f, 0.3f, 0.3f));
+		modelMatrix = cml::translate(modelMatrix, cml::vec3(-0.25f, 0.0f, 0.0f));
+		modelMatrix = cml::translate(modelMatrix, cml::vec3(0.0f, -0.25f, 0.0f));
+		modelMatrix = cml::rotate(modelMatrix, 45.0f, cml::vec3(0.0f, 0.0f, 1.0f));
+		modelMatrix = cml::rotate(modelMatrix, 45.0f, cml::vec3(0.0f, 1.0f, 0.0f));
+		modelMatrix = cml::scale(modelMatrix, cml::vec3(0.5f, 0.5f, 0.5f));
 
 		// Main program loop
 		while (m_Running)

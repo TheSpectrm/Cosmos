@@ -16,7 +16,7 @@ namespace Cosmos
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
-	struct COSMOS_API Event
+	struct CS_API Event
 	{
 		bool m_Handled = false;
 

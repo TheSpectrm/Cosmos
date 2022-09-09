@@ -1,5 +1,5 @@
 #include <cspch.h>
-#include "Math/vec2.h"
+#include "math/vec2.h"
 
 namespace Cosmos
 {

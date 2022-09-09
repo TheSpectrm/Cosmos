@@ -4,7 +4,7 @@
 
 namespace Cosmos
 {
-	struct COSMOS_API MouseMovedEvent : Event
+	struct CS_API MouseMovedEvent : Event
 	{
 	private:
 		float m_MouseX, m_MouseY;
@@ -25,7 +25,7 @@ namespace Cosmos
 		EVENT_FUNC(MouseMoved)
 	};
 
-	struct COSMOS_API MouseScrolledEvent : Event
+	struct CS_API MouseScrolledEvent : Event
 	{
 	private:
 		float m_XOffset, m_YOffset;
@@ -46,7 +46,7 @@ namespace Cosmos
 		EVENT_FUNC(MouseScrolled)
 	};
 
-	struct COSMOS_API MouseButtonEvent : Event
+	struct CS_API MouseButtonEvent : Event
 	{
 	protected:
 		int m_Button;
@@ -58,7 +58,7 @@ namespace Cosmos
 		int GetMouseButton() const { return m_Button; }
 	};
 
-	struct COSMOS_API MouseButtonPressedEvent : MouseButtonEvent
+	struct CS_API MouseButtonPressedEvent : MouseButtonEvent
 	{
 		MouseButtonPressedEvent(int button)
 			: MouseButtonEvent(button) { }
@@ -73,7 +73,7 @@ namespace Cosmos
 		EVENT_FUNC(MouseButtonPressed)
 	};
 
-	struct COSMOS_API MouseButtonReleasedEvent : MouseButtonEvent
+	struct CS_API MouseButtonReleasedEvent : MouseButtonEvent
 	{
 		MouseButtonReleasedEvent(int button)
 			: MouseButtonEvent(button) { }

@@ -1,3 +1,4 @@
+// Sandbox (default Cosmos client)
 #include <cosmos.h>
 
 class Sandbox : public Cosmos::Application

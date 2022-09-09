@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GLAD/glad.h>
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+#include <glfw/glfw3.h>
 
 #include "event/key_event.h"
 #include "event/mouse_event.h"
@@ -9,7 +9,7 @@
 
 namespace Cosmos
 {
-	class COSMOS_API Window
+	class CS_API Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLAD/glad.h>
+#include <glad/glad.h>
 
 #include "core/logger.h"
 #include "math/maths.h"
@@ -22,10 +22,10 @@ namespace Cosmos
 
 		int GetUniformLocation(std::string uniformName) const;
 
-		void LoadFloat(int location, float value) const;
-		void LoadBoolean(int location, bool value) const;
-		void LoadVector(int location, cml::vec3 vector) const;
-		void LoadMatrix(int location, cml::mat4 matrix) const;
+		void LoadFloat(int location, const float& value) const;
+		void LoadBoolean(int location, const bool& value) const;
+		void LoadVec3(int location, const cml::vec3& vector) const;
+		void LoadMatrix(int location, const cml::mat4& matrix) const;
 	};
 
 	class StaticShader : public Shader

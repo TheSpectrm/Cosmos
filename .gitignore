@@ -1,14 +1,20 @@
+# This file lists all the items to be ignored by Git.
+#--------------------------------
 # Binaries
+#--------------------------------
 bin/
 *.lib
 *.gch
-
-# Visual Studio files and folders
+#--------------------------------
+# Visual Studio Files and Folders
+#--------------------------------
 .vs/
 *.sln
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-
+#--------------------------------
 # Miscellaneous
+#--------------------------------
 ideas.txt
+#--------------------------------

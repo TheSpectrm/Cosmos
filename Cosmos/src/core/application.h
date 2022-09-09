@@ -7,7 +7,7 @@
 
 namespace Cosmos
 {
-	class Application
+	class CS_API Application
 	{
 		bool m_Running = true;
 
@@ -21,9 +21,9 @@ namespace Cosmos
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e) const;
 	public:
-		COSMOS_API Application();
+		Application();
 
-		COSMOS_API void Run() const;
+		void Run() const;
 	};
 
 	// To be defined in a Cosmos client

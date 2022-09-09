@@ -11,10 +11,10 @@ namespace Cosmos
 		std::string str, line, path = __FILE__;
 
 		#ifdef CS_BUILD_MSVC
-		path = path.substr(0, path.find_last_of("\\") + 1) + "shaders\\" + srcFile;
+		path = path.substr(0, path.find_last_of("\\") + 1) + "..\\..\\res\\shaders\\" + srcFile;
 
 		#elif defined(CS_BUILD_MINGW)
-		path = "..\\..\\Cosmos\\src\\graphics\\shaders\\" + srcFile;
+		path = "..\\..\\Cosmos\\res\\shaders\\" + srcFile;
 		#endif
 
 		std::ifstream file(path);
@@ -96,22 +96,22 @@ namespace Cosmos
 		return glGetUniformLocation(m_ProgramID, uniformName.c_str());
 	}
 
-	void Shader::LoadFloat(int location, float value) const
+	void Shader::LoadFloat(int location, const float& value) const
 	{
 		glUniform1f(location, value);
 	}
 
-	void Shader::LoadBoolean(int location, bool value) const
+	void Shader::LoadBoolean(int location, const bool& value) const
 	{
 		glUniform1f(location, value ? 1.0f : 0.0f);
 	}
 
-	void Shader::LoadVector(int location, cml::vec3 vector) const
+	void Shader::LoadVec3(int location, const cml::vec3& vector) const
 	{
 		glUniform3f(location, vector.x, vector.y, vector.z);
 	}
 
-	void Shader::LoadMatrix(int location, cml::mat4 matrix) const
+	void Shader::LoadMatrix(int location, const cml::mat4& matrix) const
 	{
 		glUniformMatrix4fv(location, 1, GL_FALSE, matrix.m);
 	}	

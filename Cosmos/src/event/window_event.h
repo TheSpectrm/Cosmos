@@ -4,14 +4,14 @@
 
 namespace Cosmos
 {
-	struct COSMOS_API WindowCloseEvent : Event
+	struct CS_API WindowCloseEvent : Event
 	{
 		WindowCloseEvent() = default;
 
 		EVENT_FUNC(WindowClose)
 	};
 
-	struct COSMOS_API WindowResizeEvent : Event
+	struct CS_API WindowResizeEvent : Event
 	{
 	private:
 		uint32_t m_Width, m_Height;

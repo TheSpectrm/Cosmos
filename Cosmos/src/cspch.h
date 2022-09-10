@@ -1,5 +1,4 @@
 // PRECOMPILED HEADERS
-#pragma once
 //--------------------------------------
 // C Standard Libraries
 //--------------------------------------

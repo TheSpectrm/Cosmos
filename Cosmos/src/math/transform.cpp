@@ -45,7 +45,7 @@ namespace Cosmos
 			return r;
 		}
 
-		mat4 translate(mat4& m, vec3 translation)
+		mat4 translate(vec3 translation)
 		{
 			mat4 r(1.0f);
 
@@ -53,10 +53,10 @@ namespace Cosmos
 			r.m[1 + 3 * 4] = translation.y;
 			r.m[2 + 3 * 4] = translation.z;
 
-			return r * m;
+			return r;
 		}
 
-		mat4 rotate(mat4& m, float angle, vec3 axis)
+		mat4 rotate(float angle, vec3 axis)
 		{
 			mat4 r(1.0f);
 
@@ -66,30 +66,30 @@ namespace Cosmos
 			d = 1.0f - c;
 			x = axis.x; y = axis.y; z = axis.z;
 
-			r.m[0 + 0 * 4] = x * x * d + c;
-			r.m[0 + 1 * 4] = y * x * d + z * s; 
-			r.m[0 + 2 * 4] = x * z * d - y * s;
+			r.m[0 + 0 * 4] = x * d + c;
+			r.m[1 + 0 * 4] = y * x * d + z * s; 
+			r.m[2 + 0 * 4] = x * z * d - y * s;
 
-			r.m[1 + 0 * 4] = x * y * d - z * s;
-			r.m[1 + 1 * 4] = y * y * d + c; 
-			r.m[1 + 2 * 4] = y * z * d + x * s;
+			r.m[0 + 1 * 4] = x * y * d - z * s;
+			r.m[1 + 1 * 4] = y * d + c; 
+			r.m[2 + 1 * 4] = y * z * d + x * s;
 
-			r.m[2 + 0 * 4] = x * z * d + y * s; 
-			r.m[2 + 1 * 4] = y * z * d - x * s; 
-			r.m[2 + 2 * 4] = z * z * d + c;
+			r.m[0 + 2 * 4] = x * z * d + y * s; 
+			r.m[1 + 2 * 4] = y * z * d - x * s; 
+			r.m[2 + 2 * 4] = z * d + c;
 
-			return r * m;
+			return r;
 		}
 
-		mat4 scale(mat4& m, vec3 scale)
+		mat4 scale(vec3 scale)
 		{
 			mat4 r(1.0f);
 
-			m.m[0 + 0 * 4] = scale.x;
-			m.m[1 + 1 * 4] = scale.y;
-			m.m[2 + 2 * 4] = scale.z;
+			r.m[0 + 0 * 4] = scale.x;
+			r.m[1 + 1 * 4] = scale.y;
+			r.m[2 + 2 * 4] = scale.z;
 
-			return r * m;
+			return r;
 		}
 	}
 }

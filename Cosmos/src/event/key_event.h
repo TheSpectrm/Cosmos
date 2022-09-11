@@ -11,6 +11,7 @@ namespace Cosmos
 
 		KeyEvent(int keycode)
 			: m_KeyCode(keycode) { }
+
 	public:
 		int GetKeyCode() const { return m_KeyCode; }
 	};

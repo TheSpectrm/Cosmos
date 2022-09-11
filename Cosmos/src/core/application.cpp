@@ -44,10 +44,10 @@ namespace Cosmos
 
 	Application::Application()
 	{
-		CS_CORE_INFO("Created and initialized application");
 		m_Window = std::unique_ptr<Window>(new Window(SCALE * WIDTH, SCALE * HEIGHT, "Cosmos"));
 		m_VAOLoader = std::unique_ptr<VAOLoader>(new VAOLoader());
 		m_Shader = std::unique_ptr<StaticShader>(new StaticShader());
+		CS_CORE_INFO("Created and initialized application");
 
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 	}
@@ -66,21 +66,31 @@ namespace Cosmos
 			3, 1, 2
 		});
 
-		cml::mat4 modelMatrix = cml::identity();
-		modelMatrix = cml::translate(modelMatrix, cml::vec3(-0.25f, 0.0f, 0.0f));
-		modelMatrix = cml::translate(modelMatrix, cml::vec3(0.0f, -0.25f, 0.0f));
-		modelMatrix = cml::rotate(modelMatrix, 45.0f, cml::vec3(0.0f, 0.0f, 1.0f));
-		modelMatrix = cml::rotate(modelMatrix, 45.0f, cml::vec3(0.0f, 1.0f, 0.0f));
-		modelMatrix = cml::scale(modelMatrix, cml::vec3(0.5f, 0.5f, 0.5f));
-
+		float x = -1.0f, y = -1.0f, z = 0.0f;
+		float rotX = 0.0f, rotY = 0.0f, rotZ = 0.0f;
+		float scale = 0.5f;
+		
 		// Main program loop
 		while (m_Running)
 		{
+			x += 0.004f;
+			y += 0.004f;
+			rotY += 1.0f;
+			rotZ += 1.0f;
+			scale += 0.001;
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glClearColor(1 / 255.0f * 98, 1 / 255.0f * 172, 1 / 255.0f * 236, 1.0f);
 
 			m_Shader->Start();
 			glBindVertexArray(model->GetVaoID());
+
+			cml::mat4 modelMatrix = cml::identity();
+			modelMatrix *= cml::translate(cml::vec3(x, y, z));
+			modelMatrix *= cml::rotate((float) rotY, cml::vec3(0.0f, 1.0f, 0.0f));
+			modelMatrix *= cml::rotate((float) rotZ, cml::vec3(0.0f, 0.0f, 1.0f));
+			modelMatrix *= cml::scale(cml::vec3(scale, scale, scale));
+
 			m_Shader->LoadMatrix(m_Shader->GetUniformLocation("modelMatrix"), modelMatrix);
 			glDrawElements(GL_TRIANGLES, (GLsizei) model->GetVertexCount(), GL_UNSIGNED_INT, null);
 			m_Shader->Stop();

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cspch.h>
-
 #define EVENT_FUNC(type)														\
 	virtual EventType GetEventType() const override { return EventType::type; } \
 	virtual const char* GetName() const override { return #type "Event fired"; }

@@ -5,7 +5,7 @@ namespace Cosmos
 {
 	#define CS_SHADER_TYPE(type) type == GL_VERTEX_SHADER ? "Vertex" : "Fragment"
 
-	int Shader::Create(std::string srcFile, int type) const
+	uint32_t Shader::Create(std::string srcFile, int type) const
 	{
 		const char* srcText;
 		std::string str, line, path = __FILE__;
@@ -25,7 +25,8 @@ namespace Cosmos
 
 		srcText = str.c_str();
 
-		int compiled, shaderID = glCreateShader(type);
+		int compiled;
+		uint32_t shaderID = glCreateShader(type);
 		glShaderSource(shaderID, 1, &srcText, null);
 		glCompileShader(shaderID);
 		glGetShaderiv(shaderID, GL_COMPILE_STATUS, &compiled);
@@ -51,9 +52,9 @@ namespace Cosmos
 		return shaderID;
 	}
 
-	void Shader::BindAttrib(int attribute, const char* variableName) const
+	void Shader::BindAttrib(int attribute, const std::string& variableName) const
 	{
-		glBindAttribLocation(m_ProgramID, attribute, variableName);
+		glBindAttribLocation(m_ProgramID, attribute, variableName.c_str());
 	}
 
 	Shader::Shader(std::string vertPath, std::string fragPath)
@@ -94,21 +95,6 @@ namespace Cosmos
 	int Shader::GetUniformLocation(std::string uniformName) const
 	{
 		return glGetUniformLocation(m_ProgramID, uniformName.c_str());
-	}
-
-	void Shader::LoadFloat(int location, const float& value) const
-	{
-		glUniform1f(location, value);
-	}
-
-	void Shader::LoadBoolean(int location, const bool& value) const
-	{
-		glUniform1f(location, value ? 1.0f : 0.0f);
-	}
-
-	void Shader::LoadVec3(int location, const cml::vec3& vector) const
-	{
-		glUniform3f(location, vector.x, vector.y, vector.z);
 	}
 
 	void Shader::LoadMatrix(int location, const cml::mat4& matrix) const

@@ -21,7 +21,7 @@
 	#define CS_BUILD_MINGW
 #endif
 
-// Undefine the macros defined by some dependencies
+// Undefine some macros defined by dependencies
 #ifdef near
 	#undef near
 #endif

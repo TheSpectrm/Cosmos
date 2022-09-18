@@ -1,35 +1,36 @@
+/* VECTOR 3D IMPLEMENTATION */
 #pragma once
 
 namespace Cosmos
 {
-	namespace cml
+	namespace Cml
 	{
-		struct vec3
+		struct Vec3
 		{
-			float x = 0.0f, y = 0.0f, z = 0.0f;
+			float X = 0.0f, Y = 0.0f, Z = 0.0f;
 
-			vec3() = default;
-			vec3(const float& x, const float& y, const float& z);
+			Vec3() = default;
+			Vec3(const float& x, const float& y, const float& z);
 
-			vec3& add(const vec3& other);
-			vec3& sub(const vec3& other);
-			vec3& mul(const vec3& other);
-			vec3& div(const vec3& other);
+			Vec3& Add(const Vec3& other);
+			Vec3& Sub(const Vec3& other);
+			Vec3& Mul(const Vec3& other);
+			Vec3& Div(const Vec3& other);
 
-			std::string tostr() const;
+			std::string ToString() const;
 
-			friend vec3& operator+(vec3& left, const vec3& right) { return left.add(right); }
-			friend vec3& operator-(vec3& left, const vec3& right) { return left.sub(right); }
-			friend vec3& operator*(vec3& left, const vec3& right) { return left.mul(right); }
-			friend vec3& operator/(vec3& left, const vec3& right) { return left.div(right); }
+			friend Vec3& operator+(Vec3& left, const Vec3& right) { return left.Add(right); }
+			friend Vec3& operator-(Vec3& left, const Vec3& right) { return left.Sub(right); }
+			friend Vec3& operator*(Vec3& left, const Vec3& right) { return left.Mul(right); }
+			friend Vec3& operator/(Vec3& left, const Vec3& right) { return left.Div(right); }
 
-			vec3& operator+=(const vec3& other) { return add(other); }
-			vec3& operator-=(const vec3& other) { return sub(other); }
-			vec3& operator*=(const vec3& other) { return mul(other); }
-			vec3& operator/=(const vec3& other) { return div(other); }
+			Vec3& operator+=(const Vec3& other) { return Add(other); }
+			Vec3& operator-=(const Vec3& other) { return Sub(other); }
+			Vec3& operator*=(const Vec3& other) { return Mul(other); }
+			Vec3& operator/=(const Vec3& other) { return Div(other); }
 
-			bool operator==(const vec3& other) const { return x == other.x && y == other.y && z == other.z; }
-			bool operator!=(const vec3& other) const { return !(*this == other); }
+			bool operator==(const Vec3& other) const { return X == other.X && Y == other.Y && Z == other.Z; }
+			bool operator!=(const Vec3& other) const { return !(*this == other); }
 		};
 	}
 }

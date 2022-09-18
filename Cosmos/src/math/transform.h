@@ -1,18 +1,22 @@
+/* MATRIX TRANSFORMATION IMPLEMENTATION */
 #pragma once
 
+#include "core/csdefs.h"
 #include "math/mat4.h"
 
 namespace Cosmos
 {
-	namespace cml
+	namespace Cml
 	{
-		const mat4 identity();
+		Mat4 Identity();
 
-		mat4 orthographic(float left, float right, float top, float bottom, float near, float far);
-		mat4 perspective(float fov, float aspectRatio, float near, float far);
+		Mat4 Orthographic(float left, float right, float top, float bottom, float near, float far);
+		Mat4 Perspective(float fov, float aspectRatio, float near, float far);
 
-		mat4 translate(vec3 translation);
-		mat4 rotate(float angle, vec3 axis);
-		mat4 scale(vec3 scale);
+		Mat4 Translate(Vec3 translation);
+		Mat4 Rotate(float angle, Vec3 axis);
+		Mat4 Scale(Vec3 scale);
+
+		float Radians(float degrees);
 	}
 }

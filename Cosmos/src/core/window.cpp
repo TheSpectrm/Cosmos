@@ -5,10 +5,10 @@ namespace Cosmos
 {
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		CS_CORE_ERROR("GLFW Error %d: %s", error, description);
+		CORE_ERROR("GLFW Error %d: %s", error, description);
 	}
 
-	Window::Window(uint32_t width, uint32_t height, const std::string& title)
+	Window::Window(const uint16_t& width, const uint16_t& height, const std::string& title)
 	{
 		m_Data.Width = width;
 		m_Data.Height = height;
@@ -25,11 +25,11 @@ namespace Cosmos
 	{
 		if (!glfwInit())
 		{
-			CS_CORE_ERROR("Failed to initialize GLFW 3.3");
+			CORE_ERROR("Failed to initialize GLFW 3.3");
 			return;
 		}
 
-		CS_CORE_INFO("Initialized GLFW 3.3");
+		CORE_INFO("Initialized GLFW 3.3");
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -40,33 +40,33 @@ namespace Cosmos
 
 		if (!m_BaseWindow)
 		{
-			CS_CORE_ERROR("Failed to create GLFW window");
+			CORE_ERROR("Failed to create GLFW window");
 			return;
 		}
 
-		CS_CORE_INFO("Created GLFW window (width=%d, height=%d, title='%s')", m_Data.Width, m_Data.Height, m_Data.Title.c_str());
+		CORE_INFO("Created GLFW window (width=%d, height=%d, title='%s')", m_Data.Width, m_Data.Height, m_Data.Title.c_str());
 		glfwMakeContextCurrent(m_BaseWindow);
 		glfwSetWindowUserPointer(m_BaseWindow, &m_Data);
 
 		gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-		CS_CORE_INFO("Initialized GLAD 4.6");
+		CORE_INFO("Initialized GLAD 4.6");
 
-		glfwSetWindowCloseCallback(m_BaseWindow, [](GLFWwindow* window) 
+		glfwSetWindowCloseCallback(m_BaseWindow, [](GLFWwindow* window)
 		{
 			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 
-			WindowCloseEvent event;
-			data.EventCallback(event);
+			WindowCloseEvent e;
+			data.EventCallback(e);
 		});
 
-		glfwSetWindowSizeCallback(m_BaseWindow, [](GLFWwindow* window, int width, int height) 
+		glfwSetWindowSizeCallback(m_BaseWindow, [](GLFWwindow* window, int width, int height)
 		{
 			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 			data.Width = width;
 			data.Height = height;
 
-			WindowResizeEvent event(width, height);
-			data.EventCallback(event);
+			WindowResizeEvent e(width, height);
+			data.EventCallback(e);
 		});
 
 		glfwSetKeyCallback(m_BaseWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -77,20 +77,20 @@ namespace Cosmos
 			{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
+					KeyPressedEvent e(key, 0);
+					data.EventCallback(e);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent event(key);
-					data.EventCallback(event);
+					KeyReleasedEvent e(key);
+					data.EventCallback(e);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
-					data.EventCallback(event);
+					KeyPressedEvent e(key, 1);
+					data.EventCallback(e);
 					break;
 				}
 			}
@@ -104,49 +104,48 @@ namespace Cosmos
 			{
 				case GLFW_PRESS:
 				{
-					MouseButtonPressedEvent event(button);
-					data.EventCallback(event);
+					MouseButtonPressedEvent e(button);
+					data.EventCallback(e);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent event(button);
-					data.EventCallback(event);
+					MouseButtonReleasedEvent e(button);
+					data.EventCallback(e);
 					break;
 				}
 			}
 		});
 
-		glfwSetScrollCallback(m_BaseWindow, [](GLFWwindow* window, double xOffset, double yOffset) 
+		glfwSetScrollCallback(m_BaseWindow, [](GLFWwindow* window, double xOffset, double yOffset)
 		{
 			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 
-			MouseScrolledEvent event((float) xOffset, (float) yOffset);
-			data.EventCallback(event);
+			MouseScrolledEvent e((float) xOffset, (float) yOffset);
+			data.EventCallback(e);
 		});
 
 		glfwSetCursorPosCallback(m_BaseWindow, [](GLFWwindow* window, double xPos, double yPos)
 		{
 			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 
-			MouseMovedEvent event((float) xPos, (float) yPos);
-			data.EventCallback(event);
+			MouseMovedEvent e((float) xPos, (float) yPos);
+			data.EventCallback(e);
 		});
 	}
 
 	void Window::Destroy() const
 	{
 		glfwDestroyWindow(m_BaseWindow);
-		CS_CORE_INFO("Destroyed GLFW window");
+		CORE_INFO("Destroyed GLFW window");
 		glfwTerminate();
-		CS_CORE_INFO("Terminated GLFW 3.3");
-		CS_CORE_INFO("Terminated GLAD 4.6");
+		CORE_INFO("Terminated GLFW 3.3");
 	}
 
 	void Window::Update() const
 	{
-		glfwSwapBuffers(m_BaseWindow);
 		glfwPollEvents();
+		glfwSwapBuffers(m_BaseWindow);
 	}
 
 	void Window::SetEventCallback(const EventCallbackFn& callback)

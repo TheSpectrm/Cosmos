@@ -1,26 +1,29 @@
+/* SHADER IMPLEMENTATION */
 #pragma once
 
 #include <glad/glad.h>
 
-#include "math/maths.h"
+#include "core/csdefs.h"
+#include "math/cml.h"
 
 namespace Cosmos
 {
 	class Shader
 	{
-		uint32_t m_ProgramID, m_VertShaderID, m_FragShaderID;
+		uint32_t m_ProgId, m_VertId, m_FragId;
 
-		uint32_t Create(std::string srcPath, int type) const;
-		void BindAttrib(int attribute, const std::string& variableName) const;
+		uint32_t Create(const std::string& srcPath, int type) const;
+		void SetVariableByAttrib(uint8_t attribute, const std::string& variableName) const;
+		void CheckError(uint32_t shaderId, const std::string& type) const;
 	public:
-		Shader(std::string vertPath, std::string fragPath);
+		Shader(const std::string& vertPath, const std::string& fragPath);
 
 		void Start() const;
 		void Stop() const;
 		void Clean() const;
 
-		int GetUniformLocation(std::string uniformName) const;
-		void LoadMatrix(int location, const cml::mat4& matrix) const;
+		uint32_t GetUniformLocation(const std::string& uniformName) const;
+		void SetMat4(int location, const Cml::Mat4& matrix) const;
 	};
 
 	class StaticShader : public Shader

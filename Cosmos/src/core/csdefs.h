@@ -1,24 +1,34 @@
+/* COSMOS COMMON DEFINITIONS */
 #pragma once
 
-// Disable warning C4251 (MSVC only)
-#pragma warning (disable:4251)
-
-// DLL import and export detection
-#ifdef CS_PLATFORM_WINDOWS
-	#ifdef CS_BUILD_DLL
-		#define CS_API __declspec(dllexport)
-	#else
-		#define CS_API __declspec(dllimport)
-	#endif
+// Define a custom null
+#ifdef __cplusplus
+	#define null nullptr
 #else
-	#error "Cosmos Engine only supports Windows for now!"
+	#define null ((void*) 0)
 #endif
 
-// Compiler detection
+// DLL export and import definitions
+#define DLLEXPORT __declspec(dllexport)
+#define DLLIMPORT __declspec(dllimport)
+
+// Detect compiler
 #ifdef _MSC_VER
-	#define CS_BUILD_MSVC
+	#define BUILD_MSVC
+	#pragma warning (disable : 4251)
 #elif defined(__MINGW32__)
-	#define CS_BUILD_MINGW
+	#define BUILD_MINGW
+#endif
+
+// Detect DLL export and import
+#ifdef PLATFORM_WINDOWS
+	#ifdef BUILD_TYPE_DLL
+		#define CS_API DLLEXPORT
+	#else
+		#define CS_API DLLIMPORT
+	#endif
+#else
+	#error Cosmos Engine only supports Windows for now!
 #endif
 
 // Undefine some macros defined by dependencies
@@ -29,9 +39,5 @@
 	#undef far
 #endif
 
-// Define a custom null
-#ifdef __cplusplus
-	#define null nullptr
-#else
-	#define null ((void*) 0)
-#endif
+/* Common Cosmos Headers */
+#include "core/logger.h"

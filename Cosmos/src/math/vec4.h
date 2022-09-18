@@ -1,35 +1,36 @@
+/* VECTOR 4D IMPLEMENTATION */
 #pragma once
 
 namespace Cosmos
 {
-	namespace cml
+	namespace Cml
 	{
-		struct vec4
+		struct Vec4
 		{
-			float x = 0.0f, y = 0.0f, z = 0.0f, w = 0.0f;
+			float X = 0.0f, Y = 0.0f, Z = 0.0f, W = 0.0f;
 
-			vec4() = default;
-			vec4(const float& x, const float& y, const float& z, const float& w);
+			Vec4() = default;
+			Vec4(const float& x, const float& y, const float& z, const float& w);
 
-			vec4& add(const vec4& other);
-			vec4& sub(const vec4& other);
-			vec4& mul(const vec4& other);
-			vec4& div(const vec4& other);
+			Vec4& Add(const Vec4& other);
+			Vec4& Sub(const Vec4& other);
+			Vec4& Mul(const Vec4& other);
+			Vec4& Div(const Vec4& other);
 
-			std::string tostr() const;
+			std::string ToString() const;
 
-			friend vec4& operator+(vec4& left, const vec4& right) { return left.add(right); }
-			friend vec4& operator-(vec4& left, const vec4& right) { return left.sub(right); }
-			friend vec4& operator*(vec4& left, const vec4& right) { return left.mul(right); }
-			friend vec4& operator/(vec4& left, const vec4& right) { return left.div(right); }
+			friend Vec4& operator+(Vec4& left, const Vec4& right) { return left.Add(right); }
+			friend Vec4& operator-(Vec4& left, const Vec4& right) { return left.Sub(right); }
+			friend Vec4& operator*(Vec4& left, const Vec4& right) { return left.Mul(right); }
+			friend Vec4& operator/(Vec4& left, const Vec4& right) { return left.Div(right); }
 
-			vec4& operator+=(const vec4& other) { return add(other); }
-			vec4& operator-=(const vec4& other) { return sub(other); }
-			vec4& operator*=(const vec4& other) { return mul(other); }
-			vec4& operator/=(const vec4& other) { return div(other); }
+			Vec4& operator+=(const Vec4& other) { return Add(other); }
+			Vec4& operator-=(const Vec4& other) { return Sub(other); }
+			Vec4& operator*=(const Vec4& other) { return Mul(other); }
+			Vec4& operator/=(const Vec4& other) { return Div(other); }
 
-			bool operator==(const vec4& other) const { return x == other.x && y == other.y && z == other.z && w == other.w; }
-			bool operator!=(const vec4& other) const { return !(*this == other); }
+			bool operator==(const Vec4& other) const { return X == other.X && Y == other.Y && Z == other.Z && W == other.W; }
+			bool operator!=(const Vec4& other) const { return !(*this == other); }
 		};
 	}
 }

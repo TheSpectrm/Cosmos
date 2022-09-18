@@ -1,3 +1,4 @@
+/* KEY EVENT IMPLEMENTATION */
 #pragma once
 
 #include "event/event.h"
@@ -6,45 +7,38 @@ namespace Cosmos
 {
 	struct CS_API KeyEvent : Event
 	{
-	protected:
-		int m_KeyCode;
+		uint16_t KeyCode;
 
-		KeyEvent(int keycode)
-			: m_KeyCode(keycode) { }
-
-	public:
-		int GetKeyCode() const { return m_KeyCode; }
+		KeyEvent(uint16_t keycode)
+			: KeyCode(keycode) { }
 	};
 
 	struct CS_API KeyPressedEvent : KeyEvent
 	{
-	private:
-		int m_Repeat;
-	public:
-		KeyPressedEvent(int keycode, int repeat)
-			: KeyEvent(keycode), m_Repeat(repeat) { }
+		bool Repeat;
+
+		KeyPressedEvent(uint16_t keycode, bool repeat)
+			: KeyEvent(keycode), Repeat(repeat) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent fired (key=" << m_KeyCode << ", repeat=" << m_Repeat << ")";
+			ss << "KeyPressedEvent fired (key=" << KeyCode << ", repeat=" << Repeat << ")";
 			return ss.str();
 		}
-
-		int GetRepeatCount() const { return m_Repeat; }
 
 		EVENT_FUNC(KeyPressed)
 	};
 
 	struct CS_API KeyReleasedEvent : KeyEvent
 	{
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(uint16_t keycode)
 			: KeyEvent(keycode) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleasedEvent fired (key=" << m_KeyCode << ")";
+			ss << "KeyReleasedEvent fired (key=" << KeyCode << ")";
 			return ss.str();
 		}
 

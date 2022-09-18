@@ -1,3 +1,4 @@
+/* WINDOW EVENT IMPLEMENTATION */
 #pragma once
 
 #include "event/event.h"
@@ -13,16 +14,15 @@ namespace Cosmos
 
 	struct CS_API WindowResizeEvent : Event
 	{
-	private:
-		uint32_t m_Width, m_Height;
-	public:
-		WindowResizeEvent(uint32_t width, uint32_t height)
-			: m_Width(width), m_Height(height) { }
+		uint16_t Width, Height;
+
+		WindowResizeEvent(uint16_t width, uint16_t height)
+			: Width(width), Height(height) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "WindowResizeEvent fired (width=" << m_Width << ", height=" << m_Height << ")";
+			ss << "WindowResizeEvent fired (width=" << Width << ", height=" << Height << ")";
 			return ss.str();
 		}
 

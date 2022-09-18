@@ -1,26 +1,25 @@
+/* MATRIX 4X4 IMPLEMENTATION */
 #pragma once
 
 #include "math/vec3.h"
 
 namespace Cosmos
 {
-	namespace cml
+	namespace Cml
 	{
-		const float pi = 3.14159f;
+		const float PI = 3.14159f;
 
-		struct mat4
+		struct Mat4
 		{
-			float m[16];
+			float M[16];
 
-			mat4();
-			mat4(float d);
+			Mat4();
+			Mat4(const float& d);
 
-			mat4& multiply(const mat4& other);
+			Mat4& Multiply(const Mat4& other);
 
-			friend mat4& operator*(mat4& left, const mat4& right) { return left.multiply(right); }
-			mat4& operator*=(const mat4& other) { return multiply(other); }
+			friend Mat4& operator*(Mat4& left, const Mat4& right) { return left.Multiply(right); }
+			Mat4& operator*=(const Mat4& other) { return Multiply(other); }
 		};
-
-		float radians(float degrees);
 	}
 }

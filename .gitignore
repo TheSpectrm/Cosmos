@@ -1,20 +1,19 @@
+# COSMOS GITIGNORE CONFIGURATION
+#
 # This file lists all the items to be ignored by Git.
-#--------------------------------
+# They are usually build products such as object files, libraries and executables.
+
 # Binaries
-#--------------------------------
 bin/
 *.lib
 *.h.gch
-#--------------------------------
-# Visual Studio Files and Folders
-#--------------------------------
+
+# Visual Studio Items
 .vs/
 *.sln
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-#--------------------------------
-# Miscellaneous
-#--------------------------------
-ideas.txt
-#--------------------------------
+
+# Precompiled Header Source (MSVC Only)
+Cosmos/src/cspch.cpp

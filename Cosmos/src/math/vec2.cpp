@@ -3,41 +3,41 @@
 
 namespace Cosmos
 {
-	namespace cml
+	namespace Cml
 	{
-		vec2::vec2(const float& x, const float& y)
+		Vec2::Vec2(const float& x, const float& y)
 		{
-			this->x = x, this->y = y;
+			this->X = x, this->Y = y;
 		}
 
-		vec2& vec2::add(const vec2& other)
+		Vec2& Vec2::Add(const Vec2& other)
 		{
-			x += other.x, y += other.y;
+			X += other.X, Y += other.Y;
 			return *this;
 		}
 
-		vec2& vec2::sub(const vec2& other)
+		Vec2& Vec2::Sub(const Vec2& other)
 		{
-			x -= other.x, y -= other.y;
+			X -= other.X, Y -= other.Y;
 			return *this;
 		}
 
-		vec2& vec2::mul(const vec2& other)
+		Vec2& Vec2::Mul(const Vec2& other)
 		{
-			x *= other.x, y *= other.y;
+			X *= other.X, Y *= other.Y;
 			return *this;
 		}
 
-		vec2& vec2::div(const vec2& other)
+		Vec2& Vec2::Div(const Vec2& other)
 		{
-			x /= other.x, y /= other.y;
+			X /= other.X, Y /= other.Y;
 			return *this;
 		}
 
-		std::string vec2::tostr() const
+		std::string Vec2::ToString() const
 		{
 			std::stringstream ss;
-			ss << "vec2(" << x << ", " << y << ")";
+			ss << "vec2(" << X << ", " << Y << ")";
 			return ss.str();
 		}
 	}

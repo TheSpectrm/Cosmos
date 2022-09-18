@@ -1,3 +1,4 @@
+/* MOUSE EVENT IMPLEMENTATION */
 #pragma once
 
 #include "event/event.h"
@@ -6,19 +7,15 @@ namespace Cosmos
 {
 	struct CS_API MouseMovedEvent : Event
 	{
-	private:
-		float m_MouseX, m_MouseY;
-	public:
-		MouseMovedEvent(float x, float y)
-			: m_MouseX(x), m_MouseY(y) { }
+		float XPos, YPos;
 
-		float GetX() const { return m_MouseX; }
-		float GetY() const { return m_MouseY; }
+		MouseMovedEvent(float xPos, float yPos)
+			: XPos(xPos), YPos(yPos) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseMovedEvent fired (x=" << m_MouseX << ", y=" << m_MouseY << ")";
+			ss << "MouseMovedEvent fired (x=" << XPos << ", y=" << YPos << ")";
 			return ss.str();
 		}
 
@@ -27,19 +24,15 @@ namespace Cosmos
 
 	struct CS_API MouseScrolledEvent : Event
 	{
-	private:
-		float m_XOffset, m_YOffset;
-	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
-			: m_XOffset(xOffset), m_YOffset(yOffset) { }
+		float XOffset, YOffset;
 
-		float GetXOffset() const { return m_XOffset; }
-		float GetYOffset() const { return m_YOffset; }
+		MouseScrolledEvent(float xOffset, float yOffset)
+			: XOffset(xOffset), YOffset(yOffset) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseScrolledEvent fired (xOffset=" << m_XOffset << ", yOffset=" << m_YOffset << ")";
+			ss << "MouseScrolledEvent fired (xOffset=" << XOffset << ", yOffset=" << YOffset << ")";
 			return ss.str();
 		}
 
@@ -48,25 +41,21 @@ namespace Cosmos
 
 	struct CS_API MouseButtonEvent : Event
 	{
-	protected:
-		int m_Button;
+		uint8_t Button;
 
-		MouseButtonEvent(int button)
-			: m_Button(button) { }
-
-	public:
-		int GetMouseButton() const { return m_Button; }
+		MouseButtonEvent(uint8_t button)
+			: Button(button) { }
 	};
 
 	struct CS_API MouseButtonPressedEvent : MouseButtonEvent
 	{
-		MouseButtonPressedEvent(int button)
+		MouseButtonPressedEvent(uint8_t button)
 			: MouseButtonEvent(button) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonPressedEvent fired (button=" << m_Button << ")";
+			ss << "MouseButtonPressedEvent fired (button=" << Button << ")";
 			return ss.str();
 		}
 
@@ -75,13 +64,13 @@ namespace Cosmos
 
 	struct CS_API MouseButtonReleasedEvent : MouseButtonEvent
 	{
-		MouseButtonReleasedEvent(int button)
+		MouseButtonReleasedEvent(uint8_t button)
 			: MouseButtonEvent(button) { }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonReleasedEvent fired (button=" << m_Button << ")";
+			ss << "MouseButtonReleasedEvent fired (button=" << Button << ")";
 			return ss.str();
 		}
 

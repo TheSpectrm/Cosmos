@@ -1,13 +1,15 @@
 #include <cspch.h>
+#include "core/logger.h"
 
 namespace Cosmos
 {
-	#define CS_RED    4
-	#define CS_YELLOW 6
-	#define CS_GREEN  2
-	#define CS_GRAY   8
+	/* Win32 API Color Code Macros */
+	#define RED    4
+	#define YELLOW 6
+	#define GREEN  2
+	#define GRAY   8
 
-	#define CS_IMPLEMENT_LOGGER_FUNC(name, color)\
+	#define IMPLEMENT_LOGGER_FUNC(name, color)\
 		void name(const char* format, ...) const\
 		{\
 			va_list args;\
@@ -31,24 +33,25 @@ namespace Cosmos
 		return timestamp;
 	}
 
-	Logger::Logger(std::string name)
+	Logger::Logger(const std::string& name)
 		: m_Name(name) { }
 
-	CS_IMPLEMENT_LOGGER_FUNC(Logger::Info, CS_GREEN)
-	CS_IMPLEMENT_LOGGER_FUNC(Logger::Trace, CS_GRAY)
-	CS_IMPLEMENT_LOGGER_FUNC(Logger::Warn, CS_YELLOW)
-	CS_IMPLEMENT_LOGGER_FUNC(Logger::Error, CS_RED)
+	IMPLEMENT_LOGGER_FUNC(Logger::Info, GREEN)
+	IMPLEMENT_LOGGER_FUNC(Logger::Trace, GRAY)
+	IMPLEMENT_LOGGER_FUNC(Logger::Warn, YELLOW)
+	IMPLEMENT_LOGGER_FUNC(Logger::Error, RED)
 
-	Logger* Log::m_CoreLogger;
+	// Re-declare Log class static member variables
+	Logger* Log::s_CoreLogger;
 
 	void Log::Init()
 	{
-		m_CoreLogger = new Logger("CORE");
-		CS_CORE_INFO("Initialized core, console, and core logger");
+		s_CoreLogger = new Logger("CORE");
+		CORE_INFO("Initialized core and console");
 	}
 
 	Logger* Log::GetCoreLogger()
 	{
-		return m_CoreLogger;
+		return s_CoreLogger;
 	}
 }

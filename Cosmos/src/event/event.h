@@ -1,12 +1,13 @@
+/* EVENT INTERFACE */
 #pragma once
 
-#define EVENT_FUNC(type)														\
-	virtual EventType GetEventType() const override { return EventType::type; } \
-	virtual const char* GetName() const override { return #type "Event fired"; }
+#define EVENT_FUNC(type)\
+	virtual EventType GetEventType() const override { return EventType::type; }\
+	virtual std::string GetName() const override { return #type"Event fired"; }
 
 namespace Cosmos
 {
-	enum class EventType
+	enum class EventType : uint8_t
 	{
 		None = 0,
 		WindowClose, WindowResize,
@@ -16,10 +17,10 @@ namespace Cosmos
 
 	struct CS_API Event
 	{
-		bool m_Handled = false;
+		bool Handled = false;
 
 		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
+		virtual std::string GetName() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 	};
 }

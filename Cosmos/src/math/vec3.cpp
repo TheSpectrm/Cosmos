@@ -3,41 +3,41 @@
 
 namespace Cosmos
 {
-	namespace cml
+	namespace Cml
 	{
-		vec3::vec3(const float& x, const float& y, const float& z)
+		Vec3::Vec3(const float& x, const float& y, const float& z)
 		{
-			this->x = x, this->y = y, this->z = z;
+			this->X = x, this->Y = y, this->Z = z;
 		}
 
-		vec3& vec3::add(const vec3& other)
+		Vec3& Vec3::Add(const Vec3& other)
 		{
-			x += other.x, y += other.y, z += other.z;
+			X += other.X, Y += other.Y, Z += other.Z;
 			return *this;
 		}
 
-		vec3& vec3::sub(const vec3& other)
+		Vec3& Vec3::Sub(const Vec3& other)
 		{
-			x -= other.x, y -= other.y, z -= other.z;
+			X -= other.X, Y -= other.Y, Z -= other.Z;
 			return *this;
 		}
 
-		vec3& vec3::mul(const vec3& other)
+		Vec3& Vec3::Mul(const Vec3& other)
 		{
-			x *= other.x, y *= other.y, z *= other.z;
+			X *= other.X, Y *= other.Y, Z *= other.Z;
 			return *this;
 		}
 
-		vec3& vec3::div(const vec3& other)
+		Vec3& Vec3::Div(const Vec3& other)
 		{
-			x /= other.x, y /= other.y, z /= other.z;
+			X /= other.X, Y /= other.Y, Z /= other.Z;
 			return *this;
 		}
 
-		std::string vec3::tostr() const
+		std::string Vec3::ToString() const
 		{
 			std::stringstream ss;
-			ss << "vec3(" << x << ", " << y << ", " << z << ")";
+			ss << "vec3(" << X << ", " << Y << ", " << Z << ")";
 			return ss.str();
 		}
 	}

@@ -3,77 +3,95 @@
 
 namespace Cosmos
 {
-	#define CS_SHADER_TYPE(type) type == GL_VERTEX_SHADER ? "Vertex" : "Fragment"
+	#define SHADER_TYPE(type) type == GL_VERTEX_SHADER ? "Vertex" : "Fragment"
 
-	uint32_t Shader::Create(std::string srcFile, int type) const
+	uint32_t Shader::Create(const std::string& srcFile, int type) const
 	{
-		const char* srcText;
-		std::string str, line, path = __FILE__;
+		const char* cSrc;
+		std::string src, line, path = __FILE__;
 
-		#ifdef CS_BUILD_MSVC
+		#ifdef BUILD_MSVC
 		path = path.substr(0, path.find_last_of("\\") + 1) + "..\\..\\res\\shaders\\" + srcFile;
-
-		#elif defined(CS_BUILD_MINGW)
+		#elif defined(BUILD_MINGW)
 		path = "..\\..\\Cosmos\\res\\shaders\\" + srcFile;
 		#endif
 
 		std::ifstream file(path);
-		CS_CORE_TRACE("Reading shader source (GLSL) file: %s", path.c_str());
+		CORE_TRACE("Reading shader source (GLSL) file: %s", path.c_str());
 
 		while (std::getline(file, line))
-			str += (line + "\n");
+			src += (line + "\n");
 
-		srcText = str.c_str();
+		cSrc = src.c_str();
+		
+		uint32_t shaderId = glCreateShader(type);
+		glShaderSource(shaderId, 1, &cSrc, null);
+		glCompileShader(shaderId);
 
-		int compiled;
-		uint32_t shaderID = glCreateShader(type);
-		glShaderSource(shaderID, 1, &srcText, null);
-		glCompileShader(shaderID);
-		glGetShaderiv(shaderID, GL_COMPILE_STATUS, &compiled);
+		CheckError(shaderId, SHADER_TYPE(type));
 
-		if (!compiled)
+		return shaderId;
+	}
+
+	void Shader::SetVariableByAttrib(uint8_t attribute, const std::string& variableName) const
+	{
+		glBindAttribLocation(m_ProgId, attribute, variableName.c_str());
+	}
+
+	void Shader::CheckError(uint32_t shaderId, const std::string& type) const
+	{
+		int success, length;
+		glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &length);
+
+		char* log = new char[length];
+
+		if (type != "PROGRAM")
 		{
-			int length;
-			glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &length);
+			glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
 
-			std::vector<char> error(length);
+			if (!success)
+			{
+				glGetShaderInfoLog(shaderId, length, &length, &log[0]);
+				CORE_ERROR("Could not compile shader");
+				CORE_ERROR("GLSL Error: %s", &log[0]);
+			} else {
+				CORE_INFO("Created OpenGL %s shader (id=%d)", type.c_str(), shaderId);
+			}
+		} else {
+			glGetShaderiv(shaderId, GL_LINK_STATUS, &success);
 
-			glGetShaderInfoLog(shaderID, length, &length, &error[0]);
-
-			CS_CORE_ERROR("Could not compile shader");
-			CS_CORE_ERROR("GLSL Error: %s", &error[0]);
-
-			Clean();
-			return 0;
+			if (!success)
+			{
+				glGetShaderInfoLog(shaderId, length, &length, &log[0]);
+				CORE_ERROR("Could not link shaders");
+				CORE_ERROR("GLSL Error: %s", &log[0]);
+			} else {
+				CORE_INFO("Created OpenGL shader %s (id=%d)", type.c_str(), shaderId);
+			}
 		}
-
-		CS_CORE_INFO("Created OpenGL %s shader (id=%d)", CS_SHADER_TYPE(type), shaderID);
-
-		return shaderID;
 	}
 
-	void Shader::BindAttrib(int attribute, const std::string& variableName) const
+	Shader::Shader(const std::string& vertPath, const std::string& fragPath)
 	{
-		glBindAttribLocation(m_ProgramID, attribute, variableName.c_str());
-	}
+		m_VertId = Create(vertPath, GL_VERTEX_SHADER);
+		m_FragId = Create(fragPath, GL_FRAGMENT_SHADER);
+		m_ProgId = glCreateProgram();
 
-	Shader::Shader(std::string vertPath, std::string fragPath)
-	{
-		m_VertShaderID = Create(vertPath, GL_VERTEX_SHADER);
-		m_FragShaderID = Create(fragPath, GL_FRAGMENT_SHADER);
-		m_ProgramID = glCreateProgram();
+		glAttachShader(m_ProgId, m_VertId);
+		glAttachShader(m_ProgId, m_FragId);
+		SetVariableByAttrib(0, "position");
 
-		glAttachShader(m_ProgramID, m_VertShaderID);
-		glAttachShader(m_ProgramID, m_FragShaderID);
-		BindAttrib(0, "position");
+		glLinkProgram(m_ProgId);
+		
+		CheckError(m_ProgId, "PROGRAM");
 
-		glLinkProgram(m_ProgramID);
-		glValidateProgram(m_ProgramID);
+		glDeleteShader(m_VertId);
+		glDeleteShader(m_FragId);
 	}
 
 	void Shader::Start() const
 	{
-		glUseProgram(m_ProgramID);
+		glUseProgram(m_ProgId);
 	}
 
 	void Shader::Stop() const
@@ -84,21 +102,19 @@ namespace Cosmos
 	void Shader::Clean() const
 	{
 		Stop();
-		CS_CORE_TRACE("Detaching and deleting vertex shader and fragment shader...");
-		glDetachShader(m_ProgramID, m_VertShaderID);
-		glDetachShader(m_ProgramID, m_FragShaderID);
-		glDeleteShader(m_VertShaderID);
-		glDeleteShader(m_FragShaderID);
-		glDeleteProgram(m_ProgramID);
+		CORE_TRACE("Detaching and deleting vertex shader, fragment shader and shader program...");
+		glDeleteShader(m_VertId);
+		glDeleteShader(m_FragId);
+		glDeleteProgram(m_ProgId);
 	}
 
-	int Shader::GetUniformLocation(std::string uniformName) const
+	uint32_t Shader::GetUniformLocation(const std::string& uniformName) const
 	{
-		return glGetUniformLocation(m_ProgramID, uniformName.c_str());
+		return glGetUniformLocation(m_ProgId, uniformName.c_str());
 	}
 
-	void Shader::LoadMatrix(int location, const cml::mat4& matrix) const
+	void Shader::SetMat4(int location, const Cml::Mat4& matrix) const
 	{
-		glUniformMatrix4fv(location, 1, GL_FALSE, matrix.m);
+		glUniformMatrix4fv(location, 1, GL_FALSE, matrix.M);
 	}	
 }

@@ -31,57 +31,17 @@ $(SRC)/cspch.h.gch: $(SRC)/cspch.h
 	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $<
 
 # Build core
-bin/Cosmos/int/application.obj: $(SRC)/core/application.cpp $(SRC)/core/application.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/logger.obj: $(SRC)/core/logger.cpp $(SRC)/core/logger.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/window.obj: $(SRC)/core/window.cpp $(SRC)/core/window.h
+bin/Cosmos/int/%.obj: $(SRC)/core/%.cpp $(SRC)/core/%.h
 	@$(info Cosmos: Building object $@)
 	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
 
 # Build graphics
-bin/Cosmos/int/model.obj: $(SRC)/graphics/model.cpp $(SRC)/graphics/model.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/vertex_array.obj: $(SRC)/graphics/vertex_array.cpp $(SRC)/graphics/vertex_array.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/vertex_buffer.obj: $(SRC)/graphics/vertex_buffer.cpp $(SRC)/graphics/vertex_buffer.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/index_buffer.obj: $(SRC)/graphics/index_buffer.cpp $(SRC)/graphics/index_buffer.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/shader.obj: $(SRC)/graphics/shader.cpp $(SRC)/graphics/shader.h
+bin/Cosmos/int/%.obj: $(SRC)/graphics/%.cpp $(SRC)/graphics/%.h
 	@$(info Cosmos: Building object $@)
 	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
 
 # Build math
-bin/Cosmos/int/vec2.obj: $(SRC)/math/vec2.cpp $(SRC)/math/vec2.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/vec3.obj: $(SRC)/math/vec3.cpp $(SRC)/math/vec3.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/vec4.obj: $(SRC)/math/vec4.cpp $(SRC)/math/vec4.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/mat4.obj: $(SRC)/math/mat4.cpp $(SRC)/math/mat4.h
-	@$(info Cosmos: Building object $@)
-	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
-
-bin/Cosmos/int/transform.obj: $(SRC)/math/transform.cpp $(SRC)/math/transform.h
+bin/Cosmos/int/%.obj: $(SRC)/math/%.cpp $(SRC)/math/%.h
 	@$(info Cosmos: Building object $@)
 	@$(CXX) -std=c++2a $(DEFINES) -I $(SRC) -I $(DEPS) -c $< -o $@
 
